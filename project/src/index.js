@@ -4,6 +4,10 @@ import App from './components/app/app';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App
+      title={'The Grand Budapest Hotel'}
+      genre={'Drama'}
+      relise={2014}
+    />
   </React.StrictMode>,
   document.getElementById('root'));

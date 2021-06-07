@@ -1,7 +1,8 @@
 import React from 'react';
+import Main from '../main/main';
 
-function App() {
-  return <p>Hello, world!</p>;
+function App(props) {
+  return <>{Main(props)}</>;
 }
 
 export default App;
