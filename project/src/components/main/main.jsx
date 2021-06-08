@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 const filmsArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
-function Main({title, genre, relise}) {
+function Main({promoFilm}) {
+  const {title, genre, relise} = promoFilm;
+
   return (
     <>
       <section className="film-card">
@@ -173,9 +175,11 @@ function Main({title, genre, relise}) {
 }
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  relise: PropTypes.number.isRequired,
+  promoFilm: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    relise: PropTypes.number.isRequired,
+  }),
 };
 
 export default Main;

@@ -2,16 +2,18 @@ import React from 'react';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
 
-function App(promoFilm) {
+function App({promoFilm}) {
   return (
-    <Main {...promoFilm} />
+    <Main promoFilm={promoFilm}/>
   );
 }
 
 App.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  relise: PropTypes.number.isRequired,
+  promoFilm: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    relise: PropTypes.number.isRequired,
+  }),
 };
 
 export default App;
