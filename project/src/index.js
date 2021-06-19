@@ -6,6 +6,7 @@ const promoFilm = {
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',
   relise: 2014,
+  authorization: true,
 };
 
 ReactDOM.render(
@@ -14,4 +15,4 @@ ReactDOM.render(
       promoFilm={promoFilm}
     />
   </React.StrictMode>,
-  document.getElementById('root'));
+  document.querySelector('#root'));
