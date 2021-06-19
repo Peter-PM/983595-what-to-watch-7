@@ -89,12 +89,12 @@ function Film() {
                     </a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="/films/:id/details" className="film-nav__link">
+                    <a href="/films/1/details" className="film-nav__link">
                       Details
                     </a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="/films/:id/review" className="film-nav__link">
+                    <a href="/films/1/review" className="film-nav__link">
                       Reviews
                     </a>
                   </li>

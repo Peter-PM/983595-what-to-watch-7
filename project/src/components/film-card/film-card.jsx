@@ -12,7 +12,7 @@ function FilmCard() {
         />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="/films/:id">
+        <a className="small-film-card__link" href="/films/1">
           Fantastic Beasts: The Crimes of Grindelwald
         </a>
       </h3>
