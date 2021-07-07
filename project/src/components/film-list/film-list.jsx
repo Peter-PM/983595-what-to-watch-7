@@ -1,24 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import FilmCard from '../film-card/film-card';
 
-function FilmCard(props) {
-  const film = props.film;
+
+function FilmList(props) {
+  const activeFilm = useState({
+    film: 0,
+  });
+  const SetId = activeFilm[1];
+  const films = props.films;
+
   return (
-    <>
-      <div className="small-film-card__image">
-        <img src={film.previewImage} alt={film.name} width="280" height="175" />
-      </div>
-      <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href={`/films/${film.id}`}>
-          {film.name}-{film.id}
-        </a>
-      </h3>
-    </>
+    <div className="catalog__films-list">
+      {films.map((film) => (
+        <article className="small-film-card catalog__films-card"  key={film.id} onMouseOver={() => {
+          SetId((prevCounter) => ({
+            ...prevCounter,
+            film: film,
+          }));
+        }}
+        >
+          <FilmCard film={film}/>
+        </article>
+      ))}
+    </div>
   );
 }
 
-FilmCard.propTypes = {
-  film: PropTypes.shape({
+FilmList.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
@@ -38,7 +48,7 @@ FilmCard.propTypes = {
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
-  }).isRequired,
+  })).isRequired,
 };
 
-export default FilmCard;
+export default FilmList;

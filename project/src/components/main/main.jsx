@@ -1,14 +1,11 @@
 import React from 'react';
-import FilmCard from '../film-card/film-card';
 import PropTypes from 'prop-types';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer';
+import FilmList from '../film-list/film-list.jsx';
 
-const filmsArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-
-function Main({promoFilm}) {
+function Main({promoFilm, films}) {
   const {title, genre, relise} = promoFilm;
-
   return (
     <>
       <section className="film-card">
@@ -123,9 +120,7 @@ function Main({promoFilm}) {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {filmsArray.map((i) => <FilmCard key={i}/>)}
-          </div>
+          <FilmList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
@@ -147,6 +142,27 @@ Main.propTypes = {
     relise: PropTypes.number.isRequired,
     authorization: PropTypes.bool.isRequired,
   }),
+  films: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    previewVideolink: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoreCount: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired,
+    ).isRequired,
+    runTime: PropTypes.number.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+  })).isRequired,
 };
 
 export default Main;

@@ -12,12 +12,15 @@ import AddReview from '../film/add-review.jsx';
 import FilmReviews from '../film/reviews.jsx';
 import Player from '../player/player.jsx';
 
-function App({promoFilm}) {
+function App({promoFilm, films, comments}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main promoFilm={promoFilm}/>
+          <Main
+            promoFilm={promoFilm}
+            films={films}
+          />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
@@ -32,7 +35,10 @@ function App({promoFilm}) {
           <AddReview authorization={promoFilm.authorization}/>
         </Route>
         <Route exact path={AppRoute.FILM_REVIEWS}>
-          <FilmReviews authorization={promoFilm.authorization}/>
+          <FilmReviews
+            authorization={promoFilm.authorization}
+            comments={comments}
+          />
         </Route>
         <Route exact path={AppRoute.FILM_DETAILS}>
           <FilmDetails authorization={promoFilm.authorization}/>
@@ -55,6 +61,37 @@ App.propTypes = {
     relise: PropTypes.number.isRequired,
     authorization: PropTypes.bool.isRequired,
   }),
+  comments: PropTypes.arrayOf(PropTypes.shape({
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  })).isRequired,
+  films: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    previewVideolink: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoreCount: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired,
+    ).isRequired,
+    runTime: PropTypes.number.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+  })).isRequired,
 };
 
 export default App;
