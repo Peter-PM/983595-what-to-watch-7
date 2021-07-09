@@ -13,14 +13,12 @@ import FilmReviews from '../film/reviews.jsx';
 import Player from '../player/player.jsx';
 
 function App({promoFilm, films, comments}) {
+  const filmsAll = films;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main
-            promoFilm={promoFilm}
-            films={films}
-          />
+          <Main promoFilm={promoFilm} films={films} />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
@@ -28,24 +26,62 @@ function App({promoFilm, films, comments}) {
         <Route exact path={AppRoute.MYLIST}>
           <MyList />
         </Route>
-        <Route exact path={AppRoute.FILM_OVERVIEW}>
-          <FilmOverview authorization={promoFilm.authorization}/>
-        </Route>
-        <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview authorization={promoFilm.authorization}/>
-        </Route>
-        <Route exact path={AppRoute.FILM_REVIEWS}>
-          <FilmReviews
-            authorization={promoFilm.authorization}
-            comments={comments}
-          />
-        </Route>
-        <Route exact path={AppRoute.FILM_DETAILS}>
-          <FilmDetails authorization={promoFilm.authorization}/>
-        </Route>
-        <Route exact path={AppRoute.PLAYER}>
-          <Player />
-        </Route>
+        <Route
+          exact
+          path={AppRoute.FILM_OVERVIEW}
+          render={(param) => (
+            <FilmOverview
+              authorization={promoFilm.authorization}
+              film={
+                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
+              }
+            />
+          )}
+        />
+        <Route
+          exact
+          path={AppRoute.FILM_REVIEWS}
+          render={(param) => (
+            <FilmReviews
+              authorization={promoFilm.authorization}
+              film={
+                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
+              }
+            />
+          )}
+        />
+        <Route
+          exact
+          path={AppRoute.FILM_DETAILS}
+          render={(param) => (
+            <FilmDetails
+              authorization={promoFilm.authorization}
+              film={
+                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
+              }
+            />
+          )}
+        />
+        <Route exact path={AppRoute.ADD_REVIEW}
+          render={(param) => (
+            <AddReview
+              authorization={promoFilm.authorization}
+              film={
+                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
+              }
+            />
+          )}
+        />
+        <Route exact path={AppRoute.PLAYER}
+          render={(param) => (
+            <Player
+              authorization={promoFilm.authorization}
+              film={
+                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
+              }
+            />
+          )}
+        />
         <Route>
           <NotFoundScreen />
         </Route>

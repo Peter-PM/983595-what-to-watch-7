@@ -10,7 +10,7 @@ function FilmCard(props) {
       </div>
       <h3 className="small-film-card__title">
         <a className="small-film-card__link" href={`/films/${film.id}`}>
-          {film.name}-{film.id}
+          {film.name}
         </a>
       </h3>
     </>

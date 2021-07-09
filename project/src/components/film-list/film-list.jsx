@@ -5,7 +5,7 @@ import FilmCard from '../film-card/film-card';
 
 function FilmList(props) {
   const activeFilm = useState({
-    film: 0,
+    film: {},
   });
   const SetId = activeFilm[1];
   const films = props.films;

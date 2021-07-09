@@ -1,7 +1,7 @@
 const films = [
   {
     id: 1,
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Budapest Hotel-1',
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
     backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
@@ -20,7 +20,7 @@ const films = [
   },
   {
     id: 2,
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Budapest Hotel-2',
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
     backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
@@ -39,7 +39,7 @@ const films = [
   },
   {
     id: 3,
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Budapest Hotel-3',
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
     backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
@@ -58,7 +58,7 @@ const films = [
   },
   {
     id: 4,
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Budapest Hotel-4',
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
     backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
@@ -77,7 +77,7 @@ const films = [
   },
   {
     id: 5,
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Budapest Hotel-5',
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
     backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
@@ -96,7 +96,7 @@ const films = [
   },
   {
     id: 6,
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Budapest Hotel-6',
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
     backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
@@ -115,7 +115,7 @@ const films = [
   },
   {
     id: 7,
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Budapest Hotel-7',
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
     backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
@@ -134,7 +134,7 @@ const films = [
   },
   {
     id: 8,
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Budapest Hotel-8',
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
     backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
