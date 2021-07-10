@@ -1,11 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {useHistory} from 'react-router-dom';
 
-function Player() {
+
+function Player(props) {
+  const film = props.film;
+  const history = useHistory();
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
-      <button xlinkHref="/" type="button" className="player__exit">Exit</button>
+      <button xlinkHref="/" type="button" className="player__exit" onClick={() => history.push(`/films/${film.id}`)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -36,5 +42,29 @@ function Player() {
     </div>
   );
 }
+
+Player.propTypes = {
+  film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    previewVideolink: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoreCount: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired,
+    ).isRequired,
+    runTime: PropTypes.number.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+  }).isRequired,
+};
 
 export default Player;

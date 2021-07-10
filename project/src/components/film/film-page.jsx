@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {useHistory, Link} from 'react-router-dom';
-//import {AppRoute} from '../../const';
+import {useHistory} from 'react-router-dom';
 import Header from '../header/header.jsx';
 import LikeThis from '../like-this/like-this';
+import FilmReviews from './reviews.jsx';
+import FilmDetails from './details.jsx';
+import FilmOverview from './overview.jsx';
 
-function FilmOverview(prop) {
+function FilmPage(prop) {
 
   const [activeTab, setActiveTab] = useState({
     tab: 'Overview',
@@ -16,15 +18,26 @@ function FilmOverview(prop) {
     DETAILS: 'Details',
     REVIEWS: 'Reviews',
   };
-
   const history = useHistory();
   const film = prop.film;
+
+  const renderTab = (hocks) => {
+    switch (hocks) {
+      case Tab.DETAILS:
+        return FilmDetails(film);
+      case Tab.REVIEWS:
+        return FilmReviews(film.id);
+      default:
+        return FilmOverview(film);
+    }
+  };
+
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.previewImage} alt={film.name}/>
+            <img src={film.previewImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -85,8 +98,10 @@ function FilmOverview(prop) {
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
-                    <Link to={`/films/${film.id}`} className="film-nav__link" name={Tab.OVERVIEW}
+                    <a
+                      href="/films/1" className="film-nav__link" name={Tab.OVERVIEW}
                       onClick={(evt) => {
+                        evt.preventDefault();
                         setActiveTab(() => ({
                           ...activeTab,
                           tab: evt.target.name,
@@ -94,11 +109,12 @@ function FilmOverview(prop) {
                       }}
                     >
                       Overview
-                    </Link>
+                    </a>
                   </li>
                   <li className="film-nav__item">
-                    <Link to={`/films/${film.id}/details`} className="film-nav__link" name={Tab.DETAILS}
+                    <a href="/films/1/details" className="film-nav__link" name={Tab.DETAILS}
                       onClick={(evt) => {
+                        evt.preventDefault();
                         setActiveTab(() => ({
                           ...activeTab,
                           tab: evt.target.name,
@@ -106,11 +122,12 @@ function FilmOverview(prop) {
                       }}
                     >
                       Details
-                    </Link>
+                    </a>
                   </li>
                   <li className="film-nav__item">
-                    <Link to={`/films/${film.id}/review`} className="film-nav__link" name={Tab.REVIEWS}
+                    <a href="/films/1/review" className="film-nav__link" name={Tab.REVIEWS}
                       onClick={(evt) => {
+                        evt.preventDefault();
                         setActiveTab(() => ({
                           ...activeTab,
                           tab: evt.target.name,
@@ -118,34 +135,12 @@ function FilmOverview(prop) {
                       }}
                     >
                       Reviews
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </nav>
 
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">
-                    {film.scoreCount} ratings
-                  </span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{film.description}</p>
-
-                <p className="film-card__director">
-                  <strong>Director: {film.director}</strong>
-                </p>
-
-                <p className="film-card__starring">
-                  <strong>
-                    Starring: {film.starring.join(', ')} and other
-                  </strong>
-                </p>
-              </div>
+              {renderTab(activeTab.tab)}
             </div>
           </div>
         </div>
@@ -156,10 +151,10 @@ function FilmOverview(prop) {
   );
 }
 
-FilmOverview.propTypes = {
+FilmPage.propTypes = {
   promoFilm: PropTypes.shape({
     authorization: PropTypes.bool.isRequired,
   }),
 };
 
-export default FilmOverview;
+export default FilmPage;
