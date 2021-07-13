@@ -14,6 +14,7 @@ import Player from '../player/player.jsx';
 
 function App({promoFilm, films, comments}) {
   const filmsAll = films;
+  const getFilmsFilter = (param) => filmsAll.filter((item) => item.id === +param.match.params.id)[0];
   return (
     <BrowserRouter>
       <Switch>
@@ -32,9 +33,7 @@ function App({promoFilm, films, comments}) {
           render={(param) => (
             <FilmOverview
               authorization={promoFilm.authorization}
-              film={
-                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
-              }
+              film={getFilmsFilter(param)}
             />
           )}
         />
@@ -44,9 +43,7 @@ function App({promoFilm, films, comments}) {
           render={(param) => (
             <FilmReviews
               authorization={promoFilm.authorization}
-              film={
-                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
-              }
+              film={getFilmsFilter(param)}
             />
           )}
         />
@@ -56,9 +53,7 @@ function App({promoFilm, films, comments}) {
           render={(param) => (
             <FilmDetails
               authorization={promoFilm.authorization}
-              film={
-                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
-              }
+              film={getFilmsFilter(param)}
             />
           )}
         />
@@ -66,9 +61,7 @@ function App({promoFilm, films, comments}) {
           render={(param) => (
             <AddReview
               authorization={promoFilm.authorization}
-              film={
-                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
-              }
+              film={getFilmsFilter(param)}
             />
           )}
         />
@@ -76,9 +69,7 @@ function App({promoFilm, films, comments}) {
           render={(param) => (
             <Player
               authorization={promoFilm.authorization}
-              film={
-                filmsAll.filter((item) => item.id === +param.match.params.id)[0]
-              }
+              film={getFilmsFilter(param)}
             />
           )}
         />
