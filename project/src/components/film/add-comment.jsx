@@ -5,7 +5,6 @@ function AddComment() {
     rating: 0,
     commentText: '',
   });
-  console.log(comment);
 
   return (
     <div className="add-review">
