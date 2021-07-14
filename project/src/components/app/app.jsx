@@ -6,11 +6,9 @@ import PropTypes from 'prop-types';
 import NotFoundScreen from '../not-found-screen/not-found-screen.jsx';
 import MyList from '../my-list/my-list.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
-import FilmOverview from '../film/overview.jsx';
-import FilmDetails from '../film/details';
 import AddReview from '../film/add-review.jsx';
-import FilmReviews from '../film/reviews.jsx';
 import Player from '../player/player.jsx';
+import FilmPage from '../film/film-page';
 
 function App({promoFilm, films, comments}) {
   const filmsAll = films;
@@ -31,27 +29,7 @@ function App({promoFilm, films, comments}) {
           exact
           path={AppRoute.FILM_OVERVIEW}
           render={(param) => (
-            <FilmOverview
-              authorization={promoFilm.authorization}
-              film={getFilmsFilter(param)}
-            />
-          )}
-        />
-        <Route
-          exact
-          path={AppRoute.FILM_REVIEWS}
-          render={(param) => (
-            <FilmReviews
-              authorization={promoFilm.authorization}
-              film={getFilmsFilter(param)}
-            />
-          )}
-        />
-        <Route
-          exact
-          path={AppRoute.FILM_DETAILS}
-          render={(param) => (
-            <FilmDetails
+            <FilmPage
               authorization={promoFilm.authorization}
               film={getFilmsFilter(param)}
             />

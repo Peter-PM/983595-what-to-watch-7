@@ -8,11 +8,10 @@ function FilmList(props) {
     film: {},
   });
   const SetId = activeFilm[1];
-  const films = props.films;
 
   return (
-    <div className="catalog__films-list">
-      {films.map((film) => (
+    <>
+      {props.films.map((film) => (
         <article className="small-film-card catalog__films-card"  key={film.id} onMouseOver={() => {
           SetId((prevCounter) => ({
             ...prevCounter,
@@ -23,7 +22,7 @@ function FilmList(props) {
           <FilmCard film={film}/>
         </article>
       ))}
-    </div>
+    </>
   );
 }
 

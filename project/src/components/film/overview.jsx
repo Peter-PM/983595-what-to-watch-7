@@ -19,7 +19,6 @@ function FilmOverview(prop) {
 
   const history = useHistory();
   const film = prop.film;
-  console.log(film);
   return (
     <>
       <section className="film-card film-card--full">

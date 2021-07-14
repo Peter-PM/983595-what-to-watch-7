@@ -1,36 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import Header from '../header/header.jsx';
+import Footer from '../footer/footer.jsx';
 import LikeThis from '../like-this/like-this';
-import FilmReviews from './reviews.jsx';
-import FilmDetails from './details.jsx';
-import FilmOverview from './overview.jsx';
+import FilmTabs from './tabs.jsx';
 
 function FilmPage(prop) {
 
-  const [activeTab, setActiveTab] = useState({
-    tab: 'Overview',
-  });
-
-  const Tab = {
-    OVERVIEW: 'Overview',
-    DETAILS: 'Details',
-    REVIEWS: 'Reviews',
-  };
   const history = useHistory();
   const film = prop.film;
-
-  const renderTab = (hocks) => {
-    switch (hocks) {
-      case Tab.DETAILS:
-        return FilmDetails(film);
-      case Tab.REVIEWS:
-        return FilmReviews(film.id);
-      default:
-        return FilmOverview(film);
-    }
-  };
 
   return (
     <>
@@ -95,58 +74,15 @@ function FilmPage(prop) {
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a
-                      href="/films/1" className="film-nav__link" name={Tab.OVERVIEW}
-                      onClick={(evt) => {
-                        evt.preventDefault();
-                        setActiveTab(() => ({
-                          ...activeTab,
-                          tab: evt.target.name,
-                        }));
-                      }}
-                    >
-                      Overview
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/films/1/details" className="film-nav__link" name={Tab.DETAILS}
-                      onClick={(evt) => {
-                        evt.preventDefault();
-                        setActiveTab(() => ({
-                          ...activeTab,
-                          tab: evt.target.name,
-                        }));
-                      }}
-                    >
-                      Details
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/films/1/review" className="film-nav__link" name={Tab.REVIEWS}
-                      onClick={(evt) => {
-                        evt.preventDefault();
-                        setActiveTab(() => ({
-                          ...activeTab,
-                          tab: evt.target.name,
-                        }));
-                      }}
-                    >
-                      Reviews
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-
-              {renderTab(activeTab.tab)}
+              <FilmTabs film={film} />
             </div>
           </div>
         </div>
       </section>
-
-      {LikeThis()}
+      <div className="page-content">
+        <LikeThis genre={film.genre} />
+        {Footer()}
+      </div>
     </>
   );
 }
