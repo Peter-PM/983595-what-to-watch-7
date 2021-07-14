@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {useHistory, Link} from 'react-router-dom';
 import Header from '../header/header.jsx';
 import LikeThis from '../like-this/like-this';
+import { getTimeAdapter } from '../date.js';
+
 
 function FilmDetails(prop) {
 
@@ -139,7 +141,7 @@ function FilmDetails(prop) {
                 <div className="film-card__text-col">
                   <p className="film-card__details-item">
                     <strong className="film-card__details-name">Run Time</strong>
-                    <span className="film-card__details-value">{111}</span>
+                    <span className="film-card__details-value">{getTimeAdapter(film.runTime)}</span>
                   </p>
                   <p className="film-card__details-item">
                     <strong className="film-card__details-name">Genre</strong>

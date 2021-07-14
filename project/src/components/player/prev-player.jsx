@@ -1,34 +1,43 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import PrevPlayer from '../player/prev-player';
+import React, { useEffect, useRef} from 'react';import PropTypes from 'prop-types';
 
-function FilmCard(props) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [index, setIndex] = useState(0);
-  const changeIsPlaying = () => setIsPlaying(true);
-  const film = props.film;
+
+function PrevPlayer(film, isPlaying) {
+
+  const videoRef = useRef();
+
+  useEffect(() => {
+    videoRef.current.onplay = () => isPlaying;
+    videoRef.current.onpause = () => isPlaying;
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.onplay = null;
+        videoRef.current.onpause = null;
+        videoRef.current = null;
+      }
+    };
+  }, [film.videoLink]);
+
+  useEffect(() => {
+    if (isPlaying) {
+      videoRef.current.play();
+      return;
+    }
+    videoRef.current.load();
+  }, [isPlaying]);
   return (
-    <>
-      <div
-        className="small-film-card__image"
-        onMouseEnter={() => setIndex(setTimeout(changeIsPlaying, 1000))}
-        onMouseLeave={() => {
-          clearTimeout(index);
-          setIsPlaying(false);
-        }}
-      >
-        {PrevPlayer(film, isPlaying)}
-      </div>
-      <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href={`/films/${film.id}`}>
-          {film.name}
-        </a>
-      </h3>
-    </>
+    <video
+      src={film.videoLink}
+      className="player__video"
+      poster={film.previewImage}
+      muted
+      ref={videoRef}
+    >
+    </video>
   );
 }
 
-FilmCard.propTypes = {
+PrevPlayer.propTypes = {
   film: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -52,4 +61,4 @@ FilmCard.propTypes = {
   }).isRequired,
 };
 
-export default FilmCard;
+export default PrevPlayer;
