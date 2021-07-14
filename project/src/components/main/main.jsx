@@ -120,7 +120,9 @@ function Main({promoFilm, films}) {
             </li>
           </ul>
 
-          <FilmList films={films}/>
+          <div className="catalog__films-list">
+            <FilmList films={films}/>
+          </div>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
