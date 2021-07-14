@@ -25,7 +25,7 @@ function AddReview(props) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="/" className="breadcrumbs__link">
+                <a href={`/films/${film.id}`} className="breadcrumbs__link">
                   {film.name}
                 </a>
               </li>

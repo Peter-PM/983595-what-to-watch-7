@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {useHistory, Link} from 'react-router-dom';
 import Header from '../header/header.jsx';
 import LikeThis from '../like-this/like-this';
-import { getTimeAdapter } from '../date.js';
+import { getTimeAdapter } from '../../utils/date.js';
 
 
 function FilmDetails(prop) {
