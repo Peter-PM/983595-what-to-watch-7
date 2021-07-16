@@ -131,7 +131,7 @@ function Main({promoFilm, films}) {
           </div>
         </section>
 
-        {Footer()}
+        <Footer/>
       </div>
     </>
   );
