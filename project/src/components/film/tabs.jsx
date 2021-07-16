@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import { getTimeAdapter } from '../../utils/data.js';
 
-function FilmTabs(prop) {
+function FilmTabs(props) {
   const [activeTab, setActiveTab] = useState({
     tab: 'Overview',
   });
@@ -13,7 +13,7 @@ function FilmTabs(prop) {
     DETAILS: 'Details',
     REVIEWS: 'Reviews',
   };
-  const film = prop.film;
+  const film = props.film;
 
   const renderDetails = () => (
     <div className="film-card__text film-card__row">

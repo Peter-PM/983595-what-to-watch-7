@@ -14,6 +14,7 @@ const store = createStore(
   composeWithDevTools(),
 );
 const promoFilm = films[getRandomNumber(0, films.length-1)];
+
 const authorization = true;
 
 ReactDOM.render(
