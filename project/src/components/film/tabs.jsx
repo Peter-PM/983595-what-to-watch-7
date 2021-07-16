@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import { getTimeAdapter } from '../../utils/date.js';
+import { getTimeAdapter } from '../../utils/data.js';
 
 function FilmTabs(prop) {
   const [activeTab, setActiveTab] = useState({

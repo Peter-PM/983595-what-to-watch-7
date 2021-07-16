@@ -1,47 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {useHistory} from 'react-router-dom';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer';
 import FilmList from '../film-list/film-list.jsx';
 
-function Main({promoFilm, films}) {
-  const {title, genre, relise} = promoFilm;
+function Main({promoFilm, films, authorization}) {
+  const {name, genre, released, previewImage, posterImage} = promoFilm;
+  const history = useHistory();
+
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
+            src={previewImage}
+            alt={name}
           />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
-        {Header(promoFilm.authorization)}
+        {Header(authorization)}
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt={title}
+                src={posterImage}
+                alt={name}
                 width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{relise}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
+                  onClick={() => history.push(`/player/${promoFilm.id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -138,11 +142,14 @@ function Main({promoFilm, films}) {
 }
 
 Main.propTypes = {
+  authorization: PropTypes.bool.isRequired,
   promoFilm: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    relise: PropTypes.number.isRequired,
-    authorization: PropTypes.bool.isRequired,
+    released: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
   }),
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
