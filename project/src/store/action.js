@@ -18,9 +18,8 @@ export const ActionCreator = {
   resetGenre: () => ({
     type: ActionType.RESET_GENRE,
   }),
-  renderFilmsPerStep: (step) => ({
+  renderFilmsPerStep: () => ({
     type: ActionType.RENDER_FILMS_PER_STEP,
-    payload: step,
   }),
   resetFilmStep: () => ({
     type: ActionType.RESET_FILM_STEP,

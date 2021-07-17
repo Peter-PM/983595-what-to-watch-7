@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.RENDER_FILMS_PER_STEP:
       return {
         ...state,
-        filmsStepRender: action.payload + FILMS_PER_STEP,
+        filmsStepRender: state.filmsStepRender + FILMS_PER_STEP,
       };
     case ActionType.RESET_FILM_STEP:
       return {

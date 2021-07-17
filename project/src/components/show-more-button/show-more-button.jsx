@@ -10,7 +10,7 @@ function ShowMoreButton(props) {
     <button
       className="catalog__button"
       type="button"
-      onClick={() => renderFilms(filmsStepRender)}
+      onClick={() => renderFilms()}
     >
       Show more
     </button>
@@ -25,8 +25,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  renderFilms(step) {
-    dispatch(ActionCreator.renderFilmsPerStep(step));
+  renderFilms() {
+    dispatch(ActionCreator.renderFilmsPerStep());
   },
 });
 

@@ -11,4 +11,4 @@ export const AppRoute = {
 
 export const ALL_GENRE = 'All genre';
 
-export const FILMS_PER_STEP = 8;
+export const FILMS_PER_STEP = 4;
