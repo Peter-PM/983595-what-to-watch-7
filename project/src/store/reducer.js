@@ -14,12 +14,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         genre: action.payload,
-        filmsByGenre: initialState.films.filter((film) => film.genre === action.payload),
       };
     case ActionType.FILMS_BY_GENRE:
       return {
         ...state,
-        filmsByGenre: films.filter((film) => film.genre === initialState.genre),
+        filmsByGenre: initialState.films.filter((film) => film.genre === action.payload),
       };
     case ActionType.RESET_GENRE:
       return {

@@ -6,7 +6,7 @@ import {ActionCreator} from '../../store/action';
 import { ALL_GENRE } from '../../const';
 
 function Genres (props) {
-  const {changeGenre, resetGenre, films} = props;
+  const {changeGenre, resetGenre, getFilmsByGenre, films} = props;
   const activeGenre = props.genre;
 
   const allGenre = [];
@@ -24,7 +24,9 @@ function Genres (props) {
           <Link
             to="#"
             className="catalog__genres-link"
-            onClick={() => { genre === ALL_GENRE ? resetGenre() : changeGenre(genre);
+            onClick={() => {
+              genre === ALL_GENRE ? resetGenre() :  changeGenre(genre);
+              genre === ALL_GENRE || getFilmsByGenre(genre);
             }}
           >
             {genre}
@@ -47,14 +49,15 @@ const mapDispatchToProps = (dispatch) => ({
   resetGenre() {
     dispatch(ActionCreator.resetGenre());
   },
-  getFilmsByGenre() {
-
-  }
+  getFilmsByGenre(genre) {
+    dispatch(ActionCreator.getFilmsByGenre(genre));
+  },
 });
 
 Genres.propTypes = {
   changeGenre:PropTypes.func.isRequired,
   resetGenre:PropTypes.func.isRequired,
+  getFilmsByGenre:PropTypes.func.isRequired,
   genre:PropTypes.string.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
