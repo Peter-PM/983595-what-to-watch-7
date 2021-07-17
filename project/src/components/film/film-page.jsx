@@ -81,7 +81,7 @@ function FilmPage(prop) {
       </section>
       <div className="page-content">
         <LikeThis genre={film.genre} />
-        {Footer()}
+        <Footer/>
       </div>
     </>
   );

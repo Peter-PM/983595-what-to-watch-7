@@ -10,14 +10,18 @@ import AddReview from '../film/add-review.jsx';
 import Player from '../player/player.jsx';
 import FilmPage from '../film/film-page';
 
-function App({promoFilm, films, comments}) {
+function App({promoFilm, films, comments, authorization}) {
   const filmsAll = films;
   const getFilmsFilter = (param) => filmsAll.filter((item) => item.id === +param.match.params.id)[0];
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main promoFilm={promoFilm} films={films} />
+          <Main
+            promoFilm={promoFilm}
+            films={films}
+            authorization={authorization}
+          />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
@@ -30,7 +34,7 @@ function App({promoFilm, films, comments}) {
           path={AppRoute.FILM_OVERVIEW}
           render={(param) => (
             <FilmPage
-              authorization={promoFilm.authorization}
+              authorization={authorization}
               film={getFilmsFilter(param)}
             />
           )}
@@ -38,7 +42,7 @@ function App({promoFilm, films, comments}) {
         <Route exact path={AppRoute.ADD_REVIEW}
           render={(param) => (
             <AddReview
-              authorization={promoFilm.authorization}
+              authorization={authorization}
               film={getFilmsFilter(param)}
             />
           )}
@@ -46,7 +50,7 @@ function App({promoFilm, films, comments}) {
         <Route exact path={AppRoute.PLAYER}
           render={(param) => (
             <Player
-              authorization={promoFilm.authorization}
+              authorization={authorization}
               film={getFilmsFilter(param)}
             />
           )}
@@ -60,11 +64,11 @@ function App({promoFilm, films, comments}) {
 }
 
 App.propTypes = {
+  authorization: PropTypes.bool.isRequired,
   promoFilm: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    relise: PropTypes.number.isRequired,
-    authorization: PropTypes.bool.isRequired,
+    released: PropTypes.number.isRequired,
   }),
   comments: PropTypes.arrayOf(PropTypes.shape({
     user: PropTypes.shape({

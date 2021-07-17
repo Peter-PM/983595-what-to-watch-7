@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 import FilmCard from '../film-card/film-card';
 
 
 function FilmList(props) {
-  const activeFilm = useState({
+  const [, SetId] = useState({
     film: {},
   });
-  const SetId = activeFilm[1];
+  //const SetId = activeFilm[1];
+  const films = props.films;
 
   return (
     <>
-      {props.films.map((film) => (
+      {films.map((film) => (
         <article className="small-film-card catalog__films-card"  key={film.id} onMouseOver={() => {
           SetId((prevCounter) => ({
             ...prevCounter,
@@ -50,4 +53,19 @@ FilmList.propTypes = {
   })).isRequired,
 };
 
-export default FilmList;
+
+const mapStateToProps = (state) => ({
+  films: state.filmsByGenre,
+});
+
+// const mapDispatchToProps = (dispatch) => ({
+//   changeGenre(genre) {
+//     dispatch(ActionCreator.changeGenre(genre));
+//   },
+//   resetGenre() {
+//     dispatch(ActionCreator.resetGenre());
+//   },
+// });
+
+export {FilmList};
+export default connect(mapStateToProps, null)(FilmList);

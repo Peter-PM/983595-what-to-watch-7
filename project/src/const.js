@@ -8,3 +8,5 @@ export const AppRoute = {
   FILM_REVIEWS: '/films/:id/review',
   PLAYER: '/player/:id',
 };
+
+export const ALL_GENRE = 'All genre';
