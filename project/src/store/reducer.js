@@ -1,11 +1,14 @@
 import {ActionType} from './action';
 import films from '../mocks/films';
 import { ALL_GENRE } from '../const';
+import { FILMS_PER_STEP } from '../const';
 
 const initialState = {
   genre: ALL_GENRE,
   films: films,
   filmsByGenre: films,
+  filmsStartRender: 0,
+  filmsStepRender:  FILMS_PER_STEP,
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +28,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         genre: ALL_GENRE,
         filmsByGenre: initialState.films,
+      };
+    case ActionType.RENDER_FILMS_PER_STEP:
+      return {
+        ...state,
+        filmsStepRender: action.payload + FILMS_PER_STEP,
+      };
+    case ActionType.RESET_FILM_STEP:
+      return {
+        ...state,
+        filmsStepRender: FILMS_PER_STEP,
       };
     default:
       return state;

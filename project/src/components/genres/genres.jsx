@@ -6,7 +6,7 @@ import {ActionCreator} from '../../store/action';
 import { ALL_GENRE } from '../../const';
 
 function Genres (props) {
-  const {changeGenre, resetGenre, getFilmsByGenre, films} = props;
+  const {changeGenre, resetGenre, getFilmsByGenre, resetRenderFilms, films} = props;
   const activeGenre = props.genre;
 
   const allGenre = [];
@@ -27,6 +27,7 @@ function Genres (props) {
             onClick={() => {
               genre === ALL_GENRE ? resetGenre() :  changeGenre(genre);
               genre === ALL_GENRE || getFilmsByGenre(genre);
+              resetRenderFilms();
             }}
           >
             {genre}
@@ -52,13 +53,17 @@ const mapDispatchToProps = (dispatch) => ({
   getFilmsByGenre(genre) {
     dispatch(ActionCreator.getFilmsByGenre(genre));
   },
+  resetRenderFilms() {
+    dispatch(ActionCreator.resetFilmStep());
+  },
 });
 
 Genres.propTypes = {
-  changeGenre:PropTypes.func.isRequired,
-  resetGenre:PropTypes.func.isRequired,
-  getFilmsByGenre:PropTypes.func.isRequired,
-  genre:PropTypes.string.isRequired,
+  changeGenre: PropTypes.func.isRequired,
+  resetGenre: PropTypes.func.isRequired,
+  getFilmsByGenre: PropTypes.func.isRequired,
+  resetRenderFilms: PropTypes.func.isRequired,
+  genre: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
