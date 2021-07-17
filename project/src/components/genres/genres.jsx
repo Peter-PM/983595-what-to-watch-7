@@ -19,12 +19,12 @@ function Genres (props) {
       {uniqGenre.map((genre, index) => (
         <li
           className={`catalog__genres-item ${activeGenre === genre ? 'catalog__genres-item--active' : ''}`}
-          key={index+1}
+          key={genre}
         >
           <Link
-            href="#"
+            to="#"
             className="catalog__genres-link"
-            onClick={() => { index === 0 ?resetGenre() : changeGenre(genre);
+            onClick={() => { genre === ALL_GENRE ? resetGenre() : changeGenre(genre);
             }}
           >
             {genre}
@@ -47,6 +47,9 @@ const mapDispatchToProps = (dispatch) => ({
   resetGenre() {
     dispatch(ActionCreator.resetGenre());
   },
+  getFilmsByGenre() {
+
+  }
 });
 
 Genres.propTypes = {

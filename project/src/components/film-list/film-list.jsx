@@ -1,27 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
 import FilmCard from '../film-card/film-card';
 
 
 function FilmList(props) {
-  const [, SetId] = useState({
-    film: {},
-  });
-  //const SetId = activeFilm[1];
+
   const films = props.films;
 
   return (
     <>
       {films.map((film) => (
-        <article className="small-film-card catalog__films-card"  key={film.id} onMouseOver={() => {
-          SetId((prevCounter) => ({
-            ...prevCounter,
-            film: film,
-          }));
-        }}
-        >
+        <article className="small-film-card catalog__films-card"  key={film.id}>
           <FilmCard film={film}/>
         </article>
       ))}
