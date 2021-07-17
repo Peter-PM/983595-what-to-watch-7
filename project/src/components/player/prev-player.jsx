@@ -27,7 +27,7 @@ function PrevPlayer(film, isPlaying) {
   }, [isPlaying]);
   return (
     <video
-      src={film.videoLink}
+      src={film.previewVideolink}
       className="player__video"
       poster={film.previewImage}
       muted

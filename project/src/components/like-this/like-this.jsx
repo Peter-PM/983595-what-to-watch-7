@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import films from '../../mocks/films.js';
-import FilmList from '../film-list/film-list.jsx';
+import {FilmList} from '../film-list/film-list.jsx';
 
 function LikeThis(props) {
   const genre = props.genre;
