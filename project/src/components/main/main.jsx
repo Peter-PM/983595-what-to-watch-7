@@ -5,6 +5,7 @@ import Header from '../header/header.jsx';
 import Genres from '../genres/genres.jsx';
 import Footer from '../footer/footer';
 import FilmList from '../film-list/film-list.jsx';
+import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 
 function Main({promoFilm, films, authorization}) {
   const {name, genre, released, previewImage, posterImage} = promoFilm;
@@ -79,9 +80,7 @@ function Main({promoFilm, films, authorization}) {
           </div>
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
+            <ShowMoreButton/>
           </div>
         </section>
 

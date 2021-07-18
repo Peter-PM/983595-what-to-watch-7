@@ -1,29 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import FilmCard from '../film-card/film-card';
+import {ActionCreator} from '../../store/action';
 
+function ShowMoreButton(props) {
+  const { filmsByGenre, filmsStepRender, renderFilms } = props;
 
-function FilmList(props) {
-  const {filmsStartRender, filmsStepRender} = props;
-
-  const films = props.films.slice(filmsStartRender, filmsStepRender);
-
-  return (
-    <>
-      {films.map((film) => (
-        <article className="small-film-card catalog__films-card"  key={film.id}>
-          <FilmCard film={film}/>
-        </article>
-      ))}
-    </>
+  return filmsByGenre.length > filmsStepRender ? (
+    <button
+      className="catalog__button"
+      type="button"
+      onClick={() => renderFilms()}
+    >
+      Show more
+    </button>
+  ) : (
+    ''
   );
 }
 
-FilmList.propTypes = {
-  filmsStartRender: PropTypes.number.isRequired,
+const mapStateToProps = (state) => ({
+  filmsStepRender: state.filmsStepRender,
+  filmsByGenre: state.filmsByGenre,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  renderFilms() {
+    dispatch(ActionCreator.renderFilmsPerStep());
+  },
+});
+
+ShowMoreButton.propTypes = {
+  renderFilms:PropTypes.func.isRequired,
   filmsStepRender: PropTypes.number.isRequired,
-  films: PropTypes.arrayOf(PropTypes.shape({
+  filmsByGenre: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
@@ -46,21 +56,5 @@ FilmList.propTypes = {
   })).isRequired,
 };
 
-
-const mapStateToProps = (state) => ({
-  films: state.filmsByGenre,
-  filmsStartRender: state.filmsStartRender,
-  filmsStepRender: state.filmsStepRender,
-});
-
-// const mapDispatchToProps = (dispatch) => ({
-//   changeGenre(genre) {
-//     dispatch(ActionCreator.changeGenre(genre));
-//   },
-//   resetGenre() {
-//     dispatch(ActionCreator.resetGenre());
-//   },
-// });
-
-export {FilmList};
-export default connect(mapStateToProps, null)(FilmList);
+export {ShowMoreButton};
+export default connect(mapStateToProps, mapDispatchToProps)(ShowMoreButton);
