@@ -6,10 +6,10 @@ import Footer from '../footer/footer.jsx';
 import LikeThis from '../like-this/like-this';
 import FilmTabs from './tabs.jsx';
 
-function FilmPage(prop) {
+function FilmPage(props) {
 
   const history = useHistory();
-  const film = prop.film;
+  const {film} = props;
 
   return (
     <>
@@ -21,7 +21,7 @@ function FilmPage(prop) {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          {Header(prop.authorization)}
+          <Header/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -88,9 +88,28 @@ function FilmPage(prop) {
 }
 
 FilmPage.propTypes = {
-  promoFilm: PropTypes.shape({
-    authorization: PropTypes.bool.isRequired,
-  }),
+  film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    previewVideolink: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    scoreCount: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired,
+    ).isRequired,
+    runTime: PropTypes.number.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+  }).isRequired,
 };
+
 
 export default FilmPage;

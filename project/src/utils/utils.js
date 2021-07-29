@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import {AuthorizationStatus} from '../const';
 
 dayjs.extend(duration);
 
@@ -13,3 +14,6 @@ export const getRandomNumber = function (min, max) {
 
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
+
+export const isCheckedAuth = (authorizationStatus) =>
+  authorizationStatus === AuthorizationStatus.UNKNOWN;

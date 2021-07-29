@@ -25,7 +25,7 @@ function Genres (props) {
             to="#"
             className="catalog__genres-link"
             onClick={() => {
-              genre === ALL_GENRE ? resetGenre() :  changeGenre(genre);
+              genre === ALL_GENRE ? resetGenre() : changeGenre(genre);
               genre === ALL_GENRE || getFilmsByGenre(genre);
               resetRenderFilms();
             }}

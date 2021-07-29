@@ -53,14 +53,6 @@ const mapStateToProps = (state) => ({
   filmsStepRender: state.filmsStepRender,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   changeGenre(genre) {
-//     dispatch(ActionCreator.changeGenre(genre));
-//   },
-//   resetGenre() {
-//     dispatch(ActionCreator.resetGenre());
-//   },
-// });
 
 export {FilmList};
 export default connect(mapStateToProps, null)(FilmList);
