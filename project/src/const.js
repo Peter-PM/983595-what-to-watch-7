@@ -9,6 +9,23 @@ export const AppRoute = {
   PLAYER: '/player/:id',
 };
 
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export const APIRoute = {
+  FILMS: '/films',
+  FILM_ID: '/films/:id',
+  SIMILAR_FILMS: '/films/: id/similar',
+  PROMO_FILM: '/promo',
+  MY_FILMS: '/favorite',
+  FILM_COMMENTS: '/comments/:film_id',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
 export const ALL_GENRE = 'All genre';
 
-export const FILMS_PER_STEP = 4;
+export const FILMS_PER_STEP = 8;

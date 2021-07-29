@@ -7,7 +7,7 @@ import Footer from '../footer/footer';
 import FilmList from '../film-list/film-list.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 
-function Main({promoFilm, films, authorization}) {
+function Main({promoFilm, films}) {
   const {name, genre, released, previewImage, posterImage} = promoFilm;
   const history = useHistory();
 
@@ -23,7 +23,7 @@ function Main({promoFilm, films, authorization}) {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        {Header(authorization)}
+        <Header/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -91,7 +91,6 @@ function Main({promoFilm, films, authorization}) {
 }
 
 Main.propTypes = {
-  authorization: PropTypes.bool.isRequired,
   promoFilm: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,

@@ -1,7 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import { AuthorizationStatus } from '../../const';
 
-function Header(authorization) {
+function Header(props) {
+  const {authorizationStatus} = props;
   return (
     <header className="page-header film-card__head">
       <div className="logo">
@@ -13,7 +16,7 @@ function Header(authorization) {
       </div>
 
       <ul className="user-block">
-        {authorization ? (
+        {authorizationStatus === AuthorizationStatus.AUTH ? (
           <>
             <li className="user-block__item">
               <div className="user-block__avatar">
@@ -38,9 +41,11 @@ function Header(authorization) {
 }
 
 Header.propTypes = {
-  promoFilm: PropTypes.shape({
-    authorization: PropTypes.bool.isRequired,
-  }),
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+export default connect(mapStateToProps, null)(Header);

@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Main from '../main/main';
@@ -9,10 +10,19 @@ import SignIn from '../sign-in/sign-in.jsx';
 import AddReview from '../film/add-review.jsx';
 import Player from '../player/player.jsx';
 import FilmPage from '../film/film-page';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { isCheckedAuth } from '../../utils/utils';
 
-function App({promoFilm, films, comments, authorization}) {
+function App(props) {
+  const {promoFilm, films, authorizationStatus, isDataLoaded} = props;
   const filmsAll = films;
   const getFilmsFilter = (param) => filmsAll.filter((item) => item.id === +param.match.params.id)[0];
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <BrowserRouter>
       <Switch>
@@ -20,7 +30,6 @@ function App({promoFilm, films, comments, authorization}) {
           <Main
             promoFilm={promoFilm}
             films={films}
-            authorization={authorization}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
@@ -34,7 +43,6 @@ function App({promoFilm, films, comments, authorization}) {
           path={AppRoute.FILM_OVERVIEW}
           render={(param) => (
             <FilmPage
-              authorization={authorization}
               film={getFilmsFilter(param)}
             />
           )}
@@ -42,7 +50,7 @@ function App({promoFilm, films, comments, authorization}) {
         <Route exact path={AppRoute.ADD_REVIEW}
           render={(param) => (
             <AddReview
-              authorization={authorization}
+              authorization={authorizationStatus}
               film={getFilmsFilter(param)}
             />
           )}
@@ -50,7 +58,7 @@ function App({promoFilm, films, comments, authorization}) {
         <Route exact path={AppRoute.PLAYER}
           render={(param) => (
             <Player
-              authorization={authorization}
+              authorization={authorizationStatus}
               film={getFilmsFilter(param)}
             />
           )}
@@ -64,22 +72,23 @@ function App({promoFilm, films, comments, authorization}) {
 }
 
 App.propTypes = {
-  authorization: PropTypes.bool.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   promoFilm: PropTypes.shape({
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
   }),
-  comments: PropTypes.arrayOf(PropTypes.shape({
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-  })).isRequired,
+  // comments: PropTypes.arrayOf(PropTypes.shape({
+  //   user: PropTypes.shape({
+  //     id: PropTypes.number.isRequired,
+  //     name: PropTypes.string.isRequired,
+  //   }),
+  //   id: PropTypes.number.isRequired,
+  //   rating: PropTypes.number.isRequired,
+  //   comment: PropTypes.string.isRequired,
+  //   date: PropTypes.string.isRequired,
+  // })).isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -103,4 +112,12 @@ App.propTypes = {
   })).isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  isDataLoaded: state.isDataLoaded,
+  films: state.films,
+  promoFilm: state.promoFilm,
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);
