@@ -1,4 +1,3 @@
-
 export const adaptToClient = (film) => {
   const adaptedFilm = Object.assign(
     {},
@@ -35,54 +34,34 @@ export const adaptToServer = (film) => {
     film,
     {
       'id': film.id,
-      'comments': film.comments,
-      'film_info': {
-        'title': film.title,
-        'alternative_title': film.originalTitle,
-        'total_rating': film.rating,
-        'poster': film.poster,
-        'age_rating': film.ageRating,
-        'director': film.director,
-        'writers': film.writers,
-        'actors': film.actors,
-        'release': {
-          'date': film.reliseDate,
-          'release_country': film.country,
-        },
-        'runtime': film.duration,
-        'genre': film.genre,
-        'description': film.description,
-      },
-      'user_details': {
-        'watchlist': film.isWatchlist,
-        'already_watched': film.isWatched,
-        'watching_date': film.watchedDate,
-        'favorite': film.isFavorite,
-      },
+      'name': film.name,
+      'poster_image': film.posterImage,
+      'preview_image': film.previewImage,
+      'background_image': film.backgroundImage,
+      'background_color': film.backgroundColor,
+      'video_link': film.videoLink,
+      'preview_video_link': film.previewVideolink,
+      'description': film.description,
+      'rating': film.rating,
+      'scores_count': film.scoreCount,
+      'director': film.director,
+      'starring': film.starring,
+      'run_time': film.runTime,
+      'genre': film.genre,
+      'released': film.released,
+      'is_favorite': film.isFavorite,
     },
   );
 
-  delete adaptedFilm.poster;
-  delete adaptedFilm.title;
-  delete adaptedFilm.originalTitle;
-  delete adaptedFilm.rating;
-  delete adaptedFilm.director;
-  delete adaptedFilm.writers;
-  delete adaptedFilm.actors;
-  delete adaptedFilm.reliseDate;
-  delete adaptedFilm.duration;
-  delete adaptedFilm.country;
-  delete adaptedFilm.genre;
-  delete adaptedFilm.description;
-  delete adaptedFilm.ageRating;
-  delete adaptedFilm.isWatchlist;
-  delete adaptedFilm.isWatched;
+  delete adaptedFilm.posterImage;
+  delete adaptedFilm.previewImage;
+  delete adaptedFilm.backgroundImage;
+  delete adaptedFilm.backgroundColor;
+  delete adaptedFilm.videoLink;
+  delete adaptedFilm.previewVideolink;
+  delete adaptedFilm.scoreCount;
+  delete adaptedFilm.runTime;
   delete adaptedFilm.isFavorite;
-  delete adaptedFilm.watchedDate;
-  delete adaptedFilm.localDescription;
-  delete adaptedFilm.localEmotion;
-  delete adaptedFilm.localComments;
-  delete adaptedFilm.isDisabled;
 
   return adaptedFilm;
 };
