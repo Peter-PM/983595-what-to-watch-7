@@ -7,7 +7,7 @@ import FilmCard from '../film-card/film-card';
 function FilmList(props) {
   const {filmsStartRender, filmsStepRender} = props;
 
-  const films = props.films.slice(filmsStartRender, filmsStepRender);
+  const films = filmsStepRender ? props.films.slice(filmsStartRender, filmsStepRender) : props.films;
 
   return (
     <>

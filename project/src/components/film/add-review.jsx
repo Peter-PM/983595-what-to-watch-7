@@ -1,6 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import AddComment from './add-comment';
+import Logo from '../header/logo';
+import Auth from '../header/auth';
 
 function AddReview(props) {
   const film = props.film;
@@ -14,13 +17,7 @@ function AddReview(props) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <div className="logo">
-            <a href="/" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo/>
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
@@ -30,42 +27,18 @@ function AddReview(props) {
                 </a>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <span className="breadcrumbs__link">Add review</span>
               </li>
             </ul>
           </nav>
 
-          <ul className="user-block">
-            {props.authorization ? (
-              <>
-                <li className="user-block__item">
-                  <div className="user-block__avatar">
-                    <img
-                      src="img/avatar.jpg"
-                      alt="User avatar"
-                      width="63"
-                      height="63"
-                    />
-                  </div>
-                </li>
-                <li className="user-block__item">
-                  <a href="/" className="user-block__link">
-                    Sign out
-                  </a>
-                </li>
-              </>
-            ) : (
-              <a href="/login" className="user-block__link">
-                Sign in
-              </a>
-            )}
-          </ul>
+          <Auth/>
         </header>
 
         <div className="film-card__poster film-card__poster--small">
           <img
-            src="img/the-grand-budapest-hotel-poster.jpg"
-            alt="The Grand Budapest Hotel poster"
+            src={film.posterImage}
+            alt={film.name}
             width="218"
             height="327"
           />
@@ -78,7 +51,6 @@ function AddReview(props) {
 }
 
 AddReview.propTypes = {
-  authorization: PropTypes.bool.isRequired,
   film: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -102,4 +74,9 @@ AddReview.propTypes = {
   }).isRequired,
 };
 
-export default AddReview;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+export {AddReview};
+export default connect(mapStateToProps, null)(AddReview);

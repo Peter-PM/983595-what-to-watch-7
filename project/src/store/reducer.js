@@ -11,6 +11,8 @@ const initialState = {
   filmsStepRender:  FILMS_PER_STEP,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
+  user: {},
+  favoriteFilms: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -62,6 +64,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         promoFilm: action.payload,
+      };
+    case ActionType.USER_INFO:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case ActionType.DELETE_USER_INFO:
+      return {
+        ...state,
+        user: {},
+      };
+    case ActionType.LOAD_FAVORITE_FILMS:
+      return {
+        ...state,
+        favoriteFilms: action.payload,
       };
     default:
       return state;

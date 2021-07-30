@@ -1,4 +1,4 @@
-export const adaptToClient = (film) => {
+export const adaptFilmToClient = (film) => {
   const adaptedFilm = Object.assign(
     {},
     film,
@@ -28,7 +28,7 @@ export const adaptToClient = (film) => {
   return adaptedFilm;
 };
 
-export const adaptToServer = (film) => {
+export const adaptFilmToServer = (film) => {
   const adaptedFilm = Object.assign(
     {},
     film,
@@ -62,6 +62,24 @@ export const adaptToServer = (film) => {
   delete adaptedFilm.scoreCount;
   delete adaptedFilm.runTime;
   delete adaptedFilm.isFavorite;
+
+  return adaptedFilm;
+};
+
+export const adaptUserToClient = (data) => {
+  const adaptedFilm = Object.assign(
+    {},
+    data,
+    {
+      id: data.id,
+      email: data.email,
+      name: data.name,
+      avatarUrl: data.avatar_url,
+      token: data.token,
+    },
+  );
+
+  delete adaptedFilm.avatar_url;
 
   return adaptedFilm;
 };
