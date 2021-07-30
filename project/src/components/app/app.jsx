@@ -11,6 +11,7 @@ import AddReview from '../film/add-review.jsx';
 import Player from '../player/player.jsx';
 import FilmPage from '../film/film-page';
 import LoadingScreen from '../loading-screen/loading-screen';
+import PrivateRoute from '../private-route/private-route';
 import { isCheckedAuth } from '../../utils/utils';
 
 function App(props) {
@@ -35,9 +36,6 @@ function App(props) {
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
-        <Route exact path={AppRoute.MYLIST}>
-          <MyList />
-        </Route>
         <Route
           exact
           path={AppRoute.FILM_OVERVIEW}
@@ -47,18 +45,25 @@ function App(props) {
             />
           )}
         />
-        <Route exact path={AppRoute.ADD_REVIEW}
+        <PrivateRoute
+          exact
+          path={AppRoute.MY_LIST}
+          render={() => <MyList/>}
+        />
+        <PrivateRoute
+          exact
+          path={AppRoute.ADD_REVIEW}
           render={(param) => (
             <AddReview
-              authorization={authorizationStatus}
               film={getFilmsFilter(param)}
             />
           )}
         />
-        <Route exact path={AppRoute.PLAYER}
+        <Route
+          exact
+          path={AppRoute.PLAYER}
           render={(param) => (
             <Player
-              authorization={authorizationStatus}
               film={getFilmsFilter(param)}
             />
           )}
@@ -78,7 +83,7 @@ App.propTypes = {
     name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
-  }),
+  }).isRequired,
   // comments: PropTypes.arrayOf(PropTypes.shape({
   //   user: PropTypes.shape({
   //     id: PropTypes.number.isRequired,

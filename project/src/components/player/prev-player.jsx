@@ -31,7 +31,7 @@ function PrevPlayer(film, isPlaying) {
       className="player__video"
       poster={film.previewImage}
       muted
-      preload='auto'
+      preload='metadata'
       ref={videoRef}
     >
     </video>

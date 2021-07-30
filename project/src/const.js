@@ -1,6 +1,6 @@
 export const AppRoute = {
   LOGIN: '/login',
-  MYLIST: '/mylist',
+  MY_LIST: '/mylist',
   FILM_OVERVIEW: '/films/:id',
   FILM_DETAILS: '/films/:id/details',
   MAIN: '/',

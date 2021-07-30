@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PrevPlayer from '../player/prev-player';
 
@@ -7,6 +8,8 @@ function FilmCard(props) {
   const [index, setIndex] = useState(0);
   const changeIsPlaying = () => setIsPlaying(true);
   const film = props.film;
+
+  const history = useHistory();
   return (
     <>
       <div
@@ -16,6 +19,7 @@ function FilmCard(props) {
           clearTimeout(index);
           setIsPlaying(false);
         }}
+        onClick={() => history.push(`/films/${film.id}`)}
       >
         {PrevPlayer(film, isPlaying)}
       </div>

@@ -8,6 +8,9 @@ export const ActionType = {
   LOGOUT: 'user/logout',
   LOAD_FILMS: 'load-films',
   LOAD_PROMO: 'load-promo-film',
+  LOAD_FAVORITE_FILMS: 'load-favorite-films',
+  USER_INFO: 'load-user-info',
+  DELETE_USER_INFO: 'delete-user-info',
 };
 
 export const ActionCreator = {
@@ -35,12 +38,23 @@ export const ActionCreator = {
   logout: () => ({
     type: ActionType.LOGOUT,
   }),
-  loadFilms: (films) => ({
+  getFilms: (films) => ({
     type: ActionType.LOAD_FILMS,
     payload: films,
   }),
   getPromoFilms: (films) => ({
     type: ActionType.LOAD_PROMO,
+    payload: films,
+  }),
+  loadUserInfo: (info) => ({
+    type: ActionType.USER_INFO,
+    payload: info,
+  }),
+  deleteUserInfo: () => ({
+    type: ActionType.DELETE_USER_INFO,
+  }),
+  getFavoriteFilms: (films) => ({
+    type: ActionType.LOAD_FAVORITE_FILMS,
     payload: films,
   }),
 };
