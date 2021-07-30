@@ -84,16 +84,6 @@ App.propTypes = {
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
   }).isRequired,
-  // comments: PropTypes.arrayOf(PropTypes.shape({
-  //   user: PropTypes.shape({
-  //     id: PropTypes.number.isRequired,
-  //     name: PropTypes.string.isRequired,
-  //   }),
-  //   id: PropTypes.number.isRequired,
-  //   rating: PropTypes.number.isRequired,
-  //   comment: PropTypes.string.isRequired,
-  //   date: PropTypes.string.isRequired,
-  // })).isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
