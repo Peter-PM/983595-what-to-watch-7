@@ -12,13 +12,13 @@ export const fetchFilmList = () => (dispatch, _getState, api) => (
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => (
   api.get(APIRoute.PROMO_FILM)
-    .then(({data}) => dispatch(ActionCreator.getPromoFilms(adaptFilmToClient(data))))
+    .then(({data}) => dispatch(ActionCreator.getActiveFilm(adaptFilmToClient(data))))
 );
 
 export const fetchFilm = (id) => (dispatch, _getState, api) => {
   const url = `/films/${id}`;
   return api.get(url)
-    .then(({data}) => dispatch(ActionCreator.getActiveFilms(adaptFilmToClient(data))))
+    .then(({data}) => dispatch(ActionCreator.getActiveFilm(adaptFilmToClient(data))))
     .then(() => dispatch(ActionCreator.redirectToFilm(url)));
 };
 
@@ -39,7 +39,7 @@ export const fetchFavoriteStatus = (id, flag) => (dispatch, _getState, api) => {
   const status = flag ? 1 : 0;
   const url = `/favorite/${id}/${status}`;
   api.post(url)
-    .then(({data}) => dispatch(ActionCreator.getActiveFilms(adaptFilmToClient(data))));
+    .then(({data}) => dispatch(ActionCreator.getActiveFilm(adaptFilmToClient(data))));
 };
 
 export const checkAuth = () => (dispatch, _getState, api) => (

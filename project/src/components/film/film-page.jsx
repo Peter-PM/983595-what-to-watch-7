@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {useHistory, Link} from 'react-router-dom';
 import { AuthorizationStatus } from '../../const.js';
+import { AppRoute } from '../../const.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import LikeThis from '../like-this/like-this';
@@ -29,7 +30,11 @@ function FilmPage(props) {
   });
 
   const changeIsFavorite = () => {
-    changeFavoriteFlag(film.id, !film.isFavorite);
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      changeFavoriteFlag(film.id, !film.isFavorite);
+    } else {
+      history.push(AppRoute.LOGIN);
+    }
   };
 
   return (

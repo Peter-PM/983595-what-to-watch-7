@@ -31,10 +31,7 @@ function App(props) {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main
-            promoFilm={promoFilm}
-            films={films}
-          />
+          <Main/>
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />

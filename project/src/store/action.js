@@ -50,7 +50,7 @@ export const ActionCreator = {
     type: ActionType.LOAD_PROMO,
     payload: films,
   }),
-  getActiveFilms: (film) => ({
+  getActiveFilm: (film) => ({
     type: ActionType.LOAD_ACTIVE_FILM,
     payload: film,
   }),

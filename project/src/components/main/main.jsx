@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import Header from '../header/header.jsx';
@@ -6,10 +7,27 @@ import Genres from '../genres/genres.jsx';
 import Footer from '../footer/footer';
 import FilmList from '../film-list/film-list.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+import { ActionCreator } from '../../store/action.js';
+import { AuthorizationStatus, AppRoute } from '../../const.js';
+import { fetchFavoriteStatus } from '../../store/api-actions.js';
 
-function Main({promoFilm, films}) {
+function Main({promoFilm, films, getActiveFilm, authorizationStatus, changeFavoriteFlag}) {
   const {name, genre, released, previewImage, posterImage} = promoFilm;
   const history = useHistory();
+
+  const handleClickPromo  = () => {
+    history.push(`/player/${promoFilm.id}`);
+    getActiveFilm(promoFilm);
+  };
+
+  const changeIsFavorite = () => {
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      changeFavoriteFlag(promoFilm.id, !promoFilm.isFavorite);
+    } else {
+      history.push(AppRoute.LOGIN);
+    }
+  };
+
   return (
     <>
       <section className="film-card">
@@ -46,7 +64,7 @@ function Main({promoFilm, films}) {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => history.push(`/player/${promoFilm.id}`)}
+                  onClick={handleClickPromo}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -56,10 +74,17 @@ function Main({promoFilm, films}) {
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
+                  onClick={changeIsFavorite}
                 >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                  {promoFilm.isFavorite ? (
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  )}
                   <span>My list</span>
                 </button>
               </div>
@@ -90,6 +115,9 @@ function Main({promoFilm, films}) {
 }
 
 Main.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  getActiveFilm: PropTypes.func.isRequired,
+  changeFavoriteFlag: PropTypes.func.isRequired,
   promoFilm: PropTypes.object.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -114,4 +142,20 @@ Main.propTypes = {
   })).isRequired,
 };
 
-export default Main;
+const mapDispatchToProps = (dispatch) => ({
+  getActiveFilm(film) {
+    dispatch(ActionCreator.getActiveFilm(film));
+  },
+  changeFavoriteFlag(id, flag) {
+    dispatch(fetchFavoriteStatus(id, flag));
+  },
+});
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  promoFilm: state.activeFilm,
+  films: state.films,
+});
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
