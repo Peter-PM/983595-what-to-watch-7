@@ -17,7 +17,7 @@ function Auth(props) {
     logoutUser();
   };
 
-  const handleMyListClick = (evt) => {
+  const handleUserAvatarClick = (evt) => {
     evt.preventDefault();
 
     getMyList();
@@ -39,7 +39,7 @@ function Auth(props) {
                 alt="User avatar"
                 width="63"
                 height="63"
-                onClick={handleMyListClick}
+                onClick={handleUserAvatarClick}
               />
             </div>
           </li>

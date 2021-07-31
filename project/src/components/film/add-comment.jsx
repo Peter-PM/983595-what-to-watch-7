@@ -1,10 +1,32 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import { ActionCreator } from '../../store/action';
 
-function AddComment() {
-  const [comment, setComment] = useState({
+function AddComment({film, getComments}) {
+  const [commentary, setComment] = useState({
     rating: 0,
-    commentText: '',
+    comment: '',
   });
+  const commentLength = commentary.comment.length >= 50 && commentary.rating !== 0;
+  const token = localStorage.getItem('token') ?? '';
+
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    fetch(`https://7.react.pages.academy/wtw/comments/${film.id}`, {
+      method: 'POST',
+      body: JSON.stringify(commentary),
+      headers: new Headers ({
+        'Content-Type': 'application/json',
+        'x-token': token,
+      }),
+    })
+      .then((response) => response.json())
+      .then((comments) => getComments(comments));
+  };
+
   const ratingArray = [10,9,8,7,6,5,4,3,2,1];
   const renderStars = () => (
     ratingArray.map((item) => (
@@ -18,8 +40,8 @@ function AddComment() {
           key={item}
           onChange={(evt) => {
             setComment(() => ({
-              ...comment,
-              rating: evt.target.value,
+              ...commentary,
+              rating: +evt.target.value,
             }));
           }}
         />
@@ -39,6 +61,7 @@ function AddComment() {
       <form
         action="#"
         className="add-review__form"
+        onSubmit={handleSubmit}
       >
         <div className="rating">
           <div className="rating__stars">
@@ -52,18 +75,22 @@ function AddComment() {
             name="review-text"
             id="review-text"
             placeholder="Review text"
+            minLength="50"
+            maxLength="400"
             onChange={(evt) => {
               setComment(() => ({
-                ...comment,
-                commentText: evt.target.value,
+                ...commentary,
+                comment: evt.target.value,
               }));
             }}
           >
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">
-              Post
-            </button>
+            {commentLength ? (
+              <button className="add-review__btn" type="submit">Post</button>
+            ) : (
+              <button className="add-review__btn" type="submit" disabled>Post</button>
+            )}
           </div>
         </div>
       </form>
@@ -71,4 +98,20 @@ function AddComment() {
   );
 }
 
-export default AddComment;
+AddComment.propTypes = {
+  getComments: PropTypes.func.isRequired,
+  film: PropTypes.shape.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  activeFilm: state.activeFilm,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getComments(comments) {
+    dispatch(ActionCreator.getComments(comments));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddComment);

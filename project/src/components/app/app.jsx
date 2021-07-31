@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
@@ -9,10 +9,12 @@ import MyList from '../my-list/my-list.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import AddReview from '../film/add-review.jsx';
 import Player from '../player/player.jsx';
-import FilmPage from '../film/film-page';
+import Film from '../film/film';
+// import FilmPage from '../film/film-page';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import { isCheckedAuth } from '../../utils/utils';
+import browserHistory from '../../browser-history';
 
 function App(props) {
   const {promoFilm, films, authorizationStatus, isDataLoaded} = props;
@@ -25,7 +27,7 @@ function App(props) {
     );
   }
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <Main
@@ -40,7 +42,7 @@ function App(props) {
           exact
           path={AppRoute.FILM_OVERVIEW}
           render={(param) => (
-            <FilmPage
+            <Film
               film={getFilmsFilter(param)}
             />
           )}
@@ -68,6 +70,9 @@ function App(props) {
             />
           )}
         />
+        <Route exact path={AppRoute.NOT_FOUND_SCREEN}>
+          <NotFoundScreen />
+        </Route>
         <Route>
           <NotFoundScreen />
         </Route>

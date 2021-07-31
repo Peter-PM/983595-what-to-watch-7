@@ -1,15 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import { AuthorizationStatus } from '../../const.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import LikeThis from '../like-this/like-this';
 import FilmTabs from './tabs.jsx';
+import { ActionCreator } from '../../store/action.js';
+import { adaptFilmToClient } from '../../services/adapter.js';
 
 function FilmPage(props) {
 
   const history = useHistory();
-  const {film} = props;
+  const {film, authorizationStatus, getSimilarFilms, getComments} = props;
+
+  React.useEffect(() => {
+    fetch(`https://7.react.pages.academy/wtw/films/${film.id}/similar`)
+      .then((response) => response.json())
+      .then((films) => {
+        getSimilarFilms(films.map((item) => adaptFilmToClient(item)));
+      });
+  });
+
+  React.useEffect(() => {
+    fetch(`https://7.react.pages.academy/wtw/comments/${film.id}`)
+      .then((response) => response.json())
+      .then((comments) => getComments(comments));
+  });
 
   return (
     <>
@@ -21,7 +39,7 @@ function FilmPage(props) {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header/>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -51,12 +69,16 @@ function FilmPage(props) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a
-                  href={`/films/${film.id}/add-review`}
-                  className="btn film-card__button"
-                >
-                  Add review
-                </a>
+                {authorizationStatus === AuthorizationStatus.AUTH ? (
+                  <a
+                    href={`/films/${film.id}/add-review`}
+                    className="btn film-card__button"
+                  >
+                    Add review
+                  </a>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
           </div>
@@ -80,14 +102,19 @@ function FilmPage(props) {
         </div>
       </section>
       <div className="page-content">
-        <LikeThis genre={film.genre} />
-        <Footer/>
+        <LikeThis
+          filmId={film.id}
+        />
+        <Footer />
       </div>
     </>
   );
 }
 
 FilmPage.propTypes = {
+  getSimilarFilms: PropTypes.func.isRequired,
+  getComments: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   film: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -111,5 +138,18 @@ FilmPage.propTypes = {
   }).isRequired,
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  getSimilarFilms(films) {
+    dispatch(ActionCreator.getSimilarFilms(films));
+  },
+  getComments(comments) {
+    dispatch(ActionCreator.getComments(comments));
+  },
+});
 
-export default FilmPage;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+export {FilmPage};
+export default connect(mapStateToProps, mapDispatchToProps)(FilmPage);

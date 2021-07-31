@@ -11,8 +11,7 @@ function Genres (props) {
 
   const allGenre = [];
   films.map((item) => allGenre.push(item.genre));
-  const uniqGenre = [ALL_GENRE, ...new Set(allGenre)];
-
+  const uniqGenre = [ALL_GENRE, ...new Set(allGenre)].slice(0,9);
 
   return (
     <ul className="catalog__genres-list">

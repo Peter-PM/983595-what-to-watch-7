@@ -1,15 +1,22 @@
-import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PrevPlayer from '../player/prev-player';
+import { fetchFilm } from '../../store/api-actions';
 
 function FilmCard(props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [index, setIndex] = useState(0);
   const changeIsPlaying = () => setIsPlaying(true);
   const film = props.film;
+  const {getActiveFilm} = props;
 
-  const history = useHistory();
+  const handleFilmClick = (evt) => {
+    evt.preventDefault();
+    getActiveFilm(`/films/${film.id}`);
+  };
+
   return (
     <>
       <div
@@ -19,41 +26,37 @@ function FilmCard(props) {
           clearTimeout(index);
           setIsPlaying(false);
         }}
-        onClick={() => history.push(`/films/${film.id}`)}
+        onClick={handleFilmClick}
       >
         {PrevPlayer(film, isPlaying)}
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href={`/films/${film.id}`}>
+        <Link className="small-film-card__link" to={`/films/${film.id}`} onClick={handleFilmClick}>
           {film.name}
-        </a>
+        </Link>
       </h3>
     </>
   );
 }
 
 FilmCard.propTypes = {
+  getActiveFilm: PropTypes.func.isRequired,
   film: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    videoLink: PropTypes.string.isRequired,
-    previewVideolink: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    scoreCount: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(
-      PropTypes.string.isRequired,
-    ).isRequired,
-    runTime: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
 };
 
-export default FilmCard;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getActiveFilm(url) {
+    dispatch(fetchFilm(url));
+  },
+});
+
+export {FilmCard};
+export default connect(mapStateToProps, mapDispatchToProps)(FilmCard);

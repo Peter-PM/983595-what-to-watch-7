@@ -15,6 +15,12 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.getPromoFilms(adaptFilmToClient(data))))
 );
 
+export const fetchFilm = (url) => (dispatch, _getState, api) => (
+  api.get(url)
+    .then(({data}) => dispatch(ActionCreator.getActiveFilms(adaptFilmToClient(data))))
+    .then(() => dispatch(ActionCreator.redirectToFilm(url)))
+);
+
 export const fetchFavoriteFilm = () => (dispatch, _getState, api) => (
   api.get(APIRoute.MY_FILMS)
     .then(({data}) => {
@@ -47,3 +53,4 @@ export const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
     .then(() => dispatch(ActionCreator.deleteUserInfo()))
 );
+
