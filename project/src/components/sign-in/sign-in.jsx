@@ -20,9 +20,9 @@ function SignIn({onSubmit, authorizationStatus}) {
       login: loginRef.current.value,
       password: passwordRef.current.value,
     });
-
-    authorizationStatus === AuthorizationStatus.AUTH || history.push(AppRoute.MAIN);
   };
+
+  authorizationStatus === AuthorizationStatus.AUTH && history.push(AppRoute.MAIN);
 
   return (
     <div className="user-page">
@@ -82,10 +82,14 @@ SignIn.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
     dispatch(login(authData));
   },
 });
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

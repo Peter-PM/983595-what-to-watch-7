@@ -45,7 +45,7 @@ function AddReview(props) {
         </div>
       </div>
 
-      <AddComment />
+      <AddComment film={film}/>
     </section>
   );
 }

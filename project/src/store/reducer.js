@@ -8,11 +8,14 @@ const initialState = {
   promoFilm: {},
   filmsByGenre: [],
   filmsStartRender: 0,
-  filmsStepRender:  FILMS_PER_STEP,
+  filmsStepRender: FILMS_PER_STEP,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
   user: {},
   favoriteFilms: {},
+  similarFilms: [],
+  comments: [],
+  activeFilm: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -79,6 +82,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         favoriteFilms: action.payload,
+      };
+    case ActionType.LOAD_SIMILAR_FILMS:
+      return {
+        ...state,
+        similarFilms: action.payload,
+      };
+    case ActionType.LOAD_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
+      };
+    case ActionType.LOAD_ACTIVE_FILM:
+      return {
+        ...state,
+        activeFilm: action.payload,
       };
     default:
       return state;
