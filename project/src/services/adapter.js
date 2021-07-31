@@ -8,7 +8,7 @@ export const adaptFilmToClient = (film) => {
       backgroundImage: film.background_image,
       backgroundColor: film.background_color,
       videoLink: film.video_link,
-      previewVideolink: film.preview_video_link,
+      previewVideoLink: film.preview_video_link,
       scoreCount: film.scores_count,
       runTime: film.run_time,
       isFavorite: film.is_favorite,
@@ -40,7 +40,7 @@ export const adaptFilmToServer = (film) => {
       'background_image': film.backgroundImage,
       'background_color': film.backgroundColor,
       'video_link': film.videoLink,
-      'preview_video_link': film.previewVideolink,
+      'preview_video_link': film.previewVideoLink,
       'description': film.description,
       'rating': film.rating,
       'scores_count': film.scoreCount,
@@ -58,7 +58,7 @@ export const adaptFilmToServer = (film) => {
   delete adaptedFilm.backgroundImage;
   delete adaptedFilm.backgroundColor;
   delete adaptedFilm.videoLink;
-  delete adaptedFilm.previewVideolink;
+  delete adaptedFilm.previewVideoLink;
   delete adaptedFilm.scoreCount;
   delete adaptedFilm.runTime;
   delete adaptedFilm.isFavorite;

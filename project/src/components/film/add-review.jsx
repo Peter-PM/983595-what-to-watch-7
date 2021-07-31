@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import AddComment from './add-comment';
@@ -22,9 +23,9 @@ function AddReview(props) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href={`/films/${film.id}`} className="breadcrumbs__link">
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">
                   {film.name}
-                </a>
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <span className="breadcrumbs__link">Add review</span>
@@ -59,7 +60,7 @@ AddReview.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
-    previewVideolink: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     scoreCount: PropTypes.number.isRequired,

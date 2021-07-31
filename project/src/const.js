@@ -7,7 +7,7 @@ export const AppRoute = {
   ADD_REVIEW: '/films/:id/add-review',
   FILM_REVIEWS: '/films/:id/review',
   PLAYER: '/player/:id',
-  NOT_FOUND_SCREEN: '/not-found',
+  COMMENT_ERROR_SCREEN: '/error-comment',
 };
 
 export const AuthorizationStatus = {
@@ -19,7 +19,7 @@ export const AuthorizationStatus = {
 export const APIRoute = {
   FILMS: '/films',
   FILM_ID: '/films/:id',
-  SIMILAR_FILMS: '/films/: id/similar',
+  SIMILAR_FILMS: '/films/:id/similar',
   PROMO_FILM: '/promo',
   MY_FILMS: '/favorite',
   FILM_COMMENTS: '/comments/:film_id',

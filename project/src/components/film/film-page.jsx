@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import { AuthorizationStatus } from '../../const.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
@@ -9,11 +9,12 @@ import LikeThis from '../like-this/like-this';
 import FilmTabs from './tabs.jsx';
 import { ActionCreator } from '../../store/action.js';
 import { adaptFilmToClient } from '../../services/adapter.js';
+import { fetchComments, fetchFavoriteStatus} from '../../store/api-actions.js';
 
 function FilmPage(props) {
 
   const history = useHistory();
-  const {film, authorizationStatus, getSimilarFilms, getComments} = props;
+  const {film, authorizationStatus, getSimilarFilms, getComments, changeFavoriteFlag} = props;
 
   React.useEffect(() => {
     fetch(`https://7.react.pages.academy/wtw/films/${film.id}/similar`)
@@ -24,10 +25,12 @@ function FilmPage(props) {
   });
 
   React.useEffect(() => {
-    fetch(`https://7.react.pages.academy/wtw/comments/${film.id}`)
-      .then((response) => response.json())
-      .then((comments) => getComments(comments));
+    getComments(`https://7.react.pages.academy/wtw/comments/${film.id}`);
   });
+
+  const changeIsFavorite = () => {
+    changeFavoriteFlag(film.id, !film.isFavorite);
+  };
 
   return (
     <>
@@ -63,19 +66,26 @@ function FilmPage(props) {
                 <button
                   className="btn btn--list film-card__button"
                   type="button"
+                  onClick={changeIsFavorite}
                 >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                  {film.isFavorite ? (
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  )}
                   <span>My list</span>
                 </button>
                 {authorizationStatus === AuthorizationStatus.AUTH ? (
-                  <a
-                    href={`/films/${film.id}/add-review`}
+                  <Link
+                    to={`/films/${film.id}/add-review`}
                     className="btn film-card__button"
                   >
                     Add review
-                  </a>
+                  </Link>
                 ) : (
                   ''
                 )}
@@ -112,6 +122,7 @@ function FilmPage(props) {
 }
 
 FilmPage.propTypes = {
+  changeFavoriteFlag: PropTypes.func.isRequired,
   getSimilarFilms: PropTypes.func.isRequired,
   getComments: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
@@ -123,7 +134,7 @@ FilmPage.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
-    previewVideolink: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     scoreCount: PropTypes.number.isRequired,
@@ -142,13 +153,17 @@ const mapDispatchToProps = (dispatch) => ({
   getSimilarFilms(films) {
     dispatch(ActionCreator.getSimilarFilms(films));
   },
-  getComments(comments) {
-    dispatch(ActionCreator.getComments(comments));
+  getComments(url) {
+    dispatch(fetchComments(url));
+  },
+  changeFavoriteFlag(id, flag) {
+    dispatch(fetchFavoriteStatus(id, flag));
   },
 });
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
+  film: state.activeFilm,
 });
 
 export {FilmPage};

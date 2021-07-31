@@ -14,8 +14,10 @@ function FilmCard(props) {
 
   const handleFilmClick = (evt) => {
     evt.preventDefault();
-    getActiveFilm(`/films/${film.id}`);
+    getActiveFilm(film.id);
   };
+
+  React.useEffect(() => () => clearTimeout(index));
 
   return (
     <>
@@ -53,8 +55,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getActiveFilm(url) {
-    dispatch(fetchFilm(url));
+  getActiveFilm(id) {
+    dispatch(fetchFilm(id));
   },
 });
 

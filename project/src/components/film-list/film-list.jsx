@@ -21,9 +21,9 @@ function FilmList(props) {
 }
 
 FilmList.propTypes = {
-  filmsStartRender: PropTypes.number.isRequired,
-  filmsStepRender: PropTypes.number.isRequired,
-  films: PropTypes.arrayOf.isRequired,
+  filmsStartRender: PropTypes.number,
+  filmsStepRender: PropTypes.number,
+  films: PropTypes.array.isRequired,
 };
 
 

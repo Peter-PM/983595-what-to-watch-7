@@ -10,7 +10,6 @@ import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 function Main({promoFilm, films}) {
   const {name, genre, released, previewImage, posterImage} = promoFilm;
   const history = useHistory();
-
   return (
     <>
       <section className="film-card">
@@ -91,14 +90,7 @@ function Main({promoFilm, films}) {
 }
 
 Main.propTypes = {
-  promoFilm: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-  }),
+  promoFilm: PropTypes.object.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -107,7 +99,7 @@ Main.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
-    previewVideolink: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     scoreCount: PropTypes.number.isRequired,

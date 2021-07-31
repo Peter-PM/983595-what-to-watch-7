@@ -5,12 +5,12 @@ import {AppRoute} from '../../const';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
 import NotFoundScreen from '../not-found-screen/not-found-screen.jsx';
+import ErrorPostScreen from '../error-post-comment/error-post-comment';
 import MyList from '../my-list/my-list.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import AddReview from '../film/add-review.jsx';
 import Player from '../player/player.jsx';
 import Film from '../film/film';
-// import FilmPage from '../film/film-page';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import { isCheckedAuth } from '../../utils/utils';
@@ -21,11 +21,12 @@ function App(props) {
   const filmsAll = films;
   const getFilmsFilter = (param) => filmsAll.filter((item) => item.id === +param.match.params.id)[0];
 
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded || !promoFilm || !films) {
     return (
       <LoadingScreen />
     );
   }
+
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -70,8 +71,8 @@ function App(props) {
             />
           )}
         />
-        <Route exact path={AppRoute.NOT_FOUND_SCREEN}>
-          <NotFoundScreen />
+        <Route exact path={AppRoute.COMMENT_ERROR_SCREEN}>
+          <ErrorPostScreen/>
         </Route>
         <Route>
           <NotFoundScreen />
@@ -84,11 +85,7 @@ function App(props) {
 App.propTypes = {
   isDataLoaded: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  promoFilm: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-  }).isRequired,
+  promoFilm: PropTypes.object.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -97,7 +94,7 @@ App.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
-    previewVideolink: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     scoreCount: PropTypes.number.isRequired,

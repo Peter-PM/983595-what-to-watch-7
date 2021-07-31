@@ -17,7 +17,7 @@ function Film(props) {
 }
 
 Film.propTypes = {
-  film: PropTypes.shape.isRequired,
+  film: PropTypes.object.isRequired,
 };
 
 export default Film;
