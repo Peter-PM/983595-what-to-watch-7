@@ -19,7 +19,7 @@ export const fetchFilm = (id) => (dispatch, _getState, api) => {
   const url = `/films/${id}`;
   return api.get(url)
     .then(({data}) => dispatch(ActionCreator.getActiveFilm(adaptFilmToClient(data))))
-    .then(() => dispatch(ActionCreator.redirectToFilm(url)));
+    .then(() => dispatch(ActionCreator.redirectTo(url)));
 };
 
 export const fetchComments = (url) => (dispatch, _getState, api) => (
@@ -61,6 +61,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       dispatch(ActionCreator.loadUserInfo(adaptUserToClient(data)));
     })
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(ActionCreator.redirectTo('/')))
 );
 
 export const logout = () => (dispatch, _getState, api) => (

@@ -2,7 +2,7 @@ import browserHistory from '../../browser-history';
 import {ActionType} from '../action';
 
 export const redirect = (_store) => (next) => (action) => {
-  if (action.type === ActionType.REDIRECT_TO_FILM) {
+  if (action.type === ActionType.REDIRECT) {
     browserHistory.push(action.payload);
   }
 

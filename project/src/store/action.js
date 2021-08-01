@@ -9,7 +9,7 @@ export const ActionType = {
   LOAD_FILMS: 'load-films',
   LOAD_PROMO: 'load-promo-film',
   LOAD_ACTIVE_FILM: 'load-active-film',
-  REDIRECT_TO_FILM: 'redirect-to-film',
+  REDIRECT: 'redirect',
   LOAD_FAVORITE_FILMS: 'load-favorite-films',
   USER_INFO: 'load-user-info',
   DELETE_USER_INFO: 'delete-user-info',
@@ -54,8 +54,8 @@ export const ActionCreator = {
     type: ActionType.LOAD_ACTIVE_FILM,
     payload: film,
   }),
-  redirectToFilm: (url) => ({
-    type: ActionType.REDIRECT_TO_FILM,
+  redirectTo: (url) => ({
+    type: ActionType.REDIRECT,
     payload: url,
   }),
   loadUserInfo: (info) => ({
