@@ -7,6 +7,7 @@ export const AppRoute = {
   ADD_REVIEW: '/films/:id/review',
   PLAYER: '/player/:id',
   COMMENT_ERROR_SCREEN: '/error-comment',
+  PAGE_NOT_FOUND: '/page-not-found',
 };
 
 export const AuthorizationStatus = {

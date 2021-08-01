@@ -11,9 +11,11 @@ import {ActionCreator} from './store/action';
 import {checkAuth, fetchFilmList, fetchPromoFilm} from './store/api-actions';
 import {AuthorizationStatus} from './const';
 import {redirect} from './store/middlewares/redirect';
+import { AppRoute } from './const';
 
 const api = createAPI(
   () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
+  () => store.dispatch(ActionCreator.redirectTo(AppRoute.PAGE_NOT_FOUND)),
 );
 
 const store = createStore(

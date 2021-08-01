@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const BACKEND_URL = 'https://7.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 
@@ -9,7 +10,7 @@ const HttpCode = {
 
 const token = localStorage.getItem('token') ?? '';
 
-export const createAPI = (onUnauthorized) => {
+export const createAPI = (onUnauthorized, notFound) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -33,6 +34,9 @@ export const createAPI = (onUnauthorized) => {
       onUnauthorized();
     }
 
+    if (!response.ok && response.status !== HttpCode.UNAUTHORIZED) {
+      notFound();
+    }
     throw err;
   };
 
