@@ -22,17 +22,7 @@ export const  secondsToHms = (second) => {
   ].join(':');
 };
 
-
 export const formatDateComments = (date) => dayjs(date).format('MMMM DD, YYYY');
-
-export const getRandomNumber = function (min, max) {
-
-  if (min > max) {
-    [min, max] = [max, min];
-  }
-
-  return Math.floor(min + Math.random() * (max + 1 - min));
-};
 
 export const formatFilmRating = (rating) => {
   if (rating > 0 && rating < 3) {

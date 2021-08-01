@@ -28,44 +28,6 @@ export const adaptFilmToClient = (film) => {
   return adaptedFilm;
 };
 
-export const adaptFilmToServer = (film) => {
-  const adaptedFilm = Object.assign(
-    {},
-    film,
-    {
-      'id': film.id,
-      'name': film.name,
-      'poster_image': film.posterImage,
-      'preview_image': film.previewImage,
-      'background_image': film.backgroundImage,
-      'background_color': film.backgroundColor,
-      'video_link': film.videoLink,
-      'preview_video_link': film.previewVideoLink,
-      'description': film.description,
-      'rating': film.rating,
-      'scores_count': film.scoreCount,
-      'director': film.director,
-      'starring': film.starring,
-      'run_time': film.runTime,
-      'genre': film.genre,
-      'released': film.released,
-      'is_favorite': film.isFavorite,
-    },
-  );
-
-  delete adaptedFilm.posterImage;
-  delete adaptedFilm.previewImage;
-  delete adaptedFilm.backgroundImage;
-  delete adaptedFilm.backgroundColor;
-  delete adaptedFilm.videoLink;
-  delete adaptedFilm.previewVideoLink;
-  delete adaptedFilm.scoreCount;
-  delete adaptedFilm.runTime;
-  delete adaptedFilm.isFavorite;
-
-  return adaptedFilm;
-};
-
 export const adaptUserToClient = (data) => {
   const adaptedFilm = Object.assign(
     {},

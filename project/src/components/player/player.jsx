@@ -15,6 +15,14 @@ function Player(props) {
 
   const videoRef = useRef();
 
+  const removeVideo = () => {
+    videoRef.current.onloadeddata = null;
+    videoRef.current.onplay = null;
+    videoRef.current.onpause = null;
+    videoRef.current.ontimeupdate = null;
+    videoRef.current = null;
+  };
+
   useEffect(() => {
 
     videoRef.current.onloadeddata = () => {
@@ -29,11 +37,7 @@ function Player(props) {
 
     return () => {
       if (videoRef.current) {
-        videoRef.current.onloadeddata = null;
-        videoRef.current.onplay = null;
-        videoRef.current.onpause = null;
-        videoRef.current.ontimeupdate = null;
-        videoRef.current = null;
+        removeVideo();
       }
     };
   }, []);
@@ -59,12 +63,7 @@ function Player(props) {
   };
 
   const handleClickExit = () => {
-    // videoRef.current.pause();
-    videoRef.current.onloadeddata = null;
-    videoRef.current.onplay = null;
-    videoRef.current.onpause = null;
-    videoRef.current.ontimeupdate = null;
-    videoRef.current = null;
+    removeVideo();
     history.push(`/films/${film.id}`);
   };
 
