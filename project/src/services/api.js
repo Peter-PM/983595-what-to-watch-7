@@ -18,7 +18,13 @@ export const createAPI = (onUnauthorized) => {
     },
   });
 
-  const onSuccess = (response) => response;
+  const onSuccess = (response) => {
+    if (response.data.token) {
+      api.defaults.headers = {'x-token': response.data.token};
+    }
+
+    return response;
+  };
 
   const onFail = (err) => {
     const {response} = err;

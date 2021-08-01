@@ -76,7 +76,7 @@ function Main({promoFilm, films, getActiveFilm, authorizationStatus, changeFavor
                   type="button"
                   onClick={changeIsFavorite}
                 >
-                  {promoFilm.isFavorite ? (
+                  {promoFilm.isFavorite && authorizationStatus === AuthorizationStatus.AUTH ? (
                     <svg viewBox="0 0 18 14" width="18" height="14">
                       <use xlinkHref="#in-list"></use>
                     </svg>

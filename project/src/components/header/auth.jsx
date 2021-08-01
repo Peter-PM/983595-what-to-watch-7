@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { AppRoute } from '../../const';
 import {AuthorizationStatus} from '../../const';
-import {logout, fetchFavoriteFilm} from '../../store/api-actions';
+import {logout, fetchFavoriteFilm, fetchPromoFilm} from '../../store/api-actions';
 
 function Auth(props) {
   const {authorizationStatus, logoutUser, getMyList, user} = props;
@@ -73,6 +73,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   logoutUser() {
     dispatch(logout());
+    dispatch(fetchPromoFilm());
   },
   getMyList() {
     dispatch(fetchFavoriteFilm());

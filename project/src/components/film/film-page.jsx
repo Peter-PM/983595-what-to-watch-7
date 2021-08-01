@@ -74,7 +74,7 @@ function FilmPage(props) {
                   type="button"
                   onClick={changeIsFavorite}
                 >
-                  {film.isFavorite ? (
+                  {film.isFavorite && authorizationStatus === AuthorizationStatus.AUTH ? (
                     <svg viewBox="0 0 18 14" width="18" height="14">
                       <use xlinkHref="#in-list"></use>
                     </svg>
@@ -87,7 +87,7 @@ function FilmPage(props) {
                 </button>
                 {authorizationStatus === AuthorizationStatus.AUTH ? (
                   <Link
-                    to={`/films/${film.id}/add-review`}
+                    to={`/films/${film.id}/review`}
                     className="btn film-card__button"
                   >
                     Add review
@@ -153,7 +153,7 @@ FilmPage.propTypes = {
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
-  }).isRequired,
+  }),
 };
 
 const mapDispatchToProps = (dispatch) => ({

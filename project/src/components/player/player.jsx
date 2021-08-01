@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import { secondsToHms } from '../../utils/utils';
-import LoadingScreen from '../loading-screen/loading-screen';
+import LoadingFilmScreen from '../loading-screen/loading-film';
 
 function Player(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,10 +21,8 @@ function Player(props) {
       setIsLoading(false);
       setDuration(videoRef.current.duration);
       setBarLength(videoRef.current.clientWidth);
-
-      if (videoRef.current && videoRef.current.currentTime) {
-        videoRef.current.ontimeupdate = () => setCurrentTime(videoRef.current.currentTime);
-      }
+      videoRef.current.play();
+      videoRef.current.ontimeupdate = () => setCurrentTime(videoRef.current.currentTime);
     };
     videoRef.current.onplay = () => setIsPlaying(true);
     videoRef.current.onpause = () => setIsPlaying(false);
@@ -61,13 +59,18 @@ function Player(props) {
   };
 
   const handleClickExit = () => {
-    videoRef.current.pause();
+    // videoRef.current.pause();
+    videoRef.current.onloadeddata = null;
+    videoRef.current.onplay = null;
+    videoRef.current.onpause = null;
+    videoRef.current.ontimeupdate = null;
+    videoRef.current = null;
     history.push(`/films/${film.id}`);
   };
 
   return (
     <>
-      {isLoading && <div style={{position: 'fixed', zIndex: 2}}><LoadingScreen/></div>}
+      {isLoading && <div style={{position: 'fixed', zIndex: 2, marginTop: '200px', left: '45%'}}><LoadingFilmScreen/></div>}
       <div className="player">
         <video src={film.videoLink} className="player__video" poster={film.previewImage} autoPlay preload='metadata' ref={videoRef}></video>
 
@@ -76,8 +79,13 @@ function Player(props) {
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value={100 * currentTime/videoDuration} max="100"></progress>
-              <div className="player__toggler" style={{left: Math.floor(barLength * currentTime/videoDuration)}}>Toggler</div>
+              <progress
+                className="player__progress"
+                value={100 * currentTime/(videoDuration+1)}
+                max="100"
+              >
+              </progress>
+              <div className="player__toggler" style={{left: Math.floor(barLength * currentTime/(videoDuration+1))} || {left: 30}}>Toggler</div>
             </div>
             <div className="player__time-value">-{secondsToHms(videoDuration - currentTime)}</div>
           </div>
