@@ -22,7 +22,7 @@ function Main({promoFilm, films, getActiveFilm, authorizationStatus, changeFavor
 
   const changeIsFavorite = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      changeFavoriteFlag(promoFilm.id, !promoFilm.isFavorite);
+      changeFavoriteFlag(promoFilm.id, !promoFilm.isFavorite, true);
     } else {
       history.push(AppRoute.LOGIN);
     }
@@ -146,14 +146,14 @@ const mapDispatchToProps = (dispatch) => ({
   getActiveFilm(film) {
     dispatch(ActionCreator.getActiveFilm(film));
   },
-  changeFavoriteFlag(id, flag) {
-    dispatch(fetchFavoriteStatus(id, flag));
+  changeFavoriteFlag(id, flag, promo) {
+    dispatch(fetchFavoriteStatus(id, flag, promo));
   },
 });
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
-  promoFilm: state.activeFilm,
+  promoFilm: state.promoFilm,
   films: state.films,
 });
 

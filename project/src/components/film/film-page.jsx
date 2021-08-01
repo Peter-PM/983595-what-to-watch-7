@@ -15,7 +15,8 @@ import { fetchComments, fetchFavoriteStatus} from '../../store/api-actions.js';
 function FilmPage(props) {
 
   const history = useHistory();
-  const {film, authorizationStatus, getSimilarFilms, getComments, changeFavoriteFlag} = props;
+  const {filmFromState, authorizationStatus, getSimilarFilms, getComments, changeFavoriteFlag} = props;
+  const film = filmFromState ? filmFromState : props.filmFromUrl;
 
   React.useEffect(() => {
     fetch(`https://7.react.pages.academy/wtw/films/${film.id}/similar`)
@@ -131,7 +132,8 @@ FilmPage.propTypes = {
   getSimilarFilms: PropTypes.func.isRequired,
   getComments: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  film: PropTypes.shape({
+  filmFromUrl: PropTypes.object.isRequired,
+  filmFromState: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
@@ -168,7 +170,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
-  film: state.activeFilm,
+  filmFromState: state.activeFilm,
 });
 
 export {FilmPage};

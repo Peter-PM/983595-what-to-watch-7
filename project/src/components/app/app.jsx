@@ -41,7 +41,7 @@ function App(props) {
           path={AppRoute.FILM_OVERVIEW}
           render={(param) => (
             <Film
-              film={getFilmsFilter(param)}
+              filmFromUrl={getFilmsFilter(param)}
             />
           )}
         />

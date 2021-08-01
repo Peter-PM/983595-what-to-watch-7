@@ -15,7 +15,7 @@ const initialState = {
   favoriteFilms: [],
   similarFilms: [],
   comments: [],
-  activeFilm: {},
+  activeFilm: null,
 };
 
 const reducer = (state = initialState, action) => {

@@ -3,21 +3,20 @@ import PropTypes from 'prop-types';
 import FilmPage from './film-page';
 import { useHistory } from 'react-router';
 import { AppRoute } from '../../const';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function Film(props) {
-  const {film} = props;
   const history = useHistory();
-  return film ? (
-    <FilmPage film={film}/>
-  ) : (
-    <>
-      {history.push(AppRoute.NOT_FOUND_SCREEN)}
-    </>
-  );
+
+  if (!props.filmFromUrl) {
+    return <NotFoundScreen/>;
+  }
+
+  return  <FilmPage filmFromUrl={props.filmFromUrl}/>;
 }
 
 Film.propTypes = {
-  film: PropTypes.object.isRequired,
+  filmFromUrl: PropTypes.object.isRequired,
 };
 
 export default Film;
