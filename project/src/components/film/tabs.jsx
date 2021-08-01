@@ -153,7 +153,7 @@ FilmTabs.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
-    previewVideolink: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     scoreCount: PropTypes.number.isRequired,

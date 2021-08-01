@@ -15,19 +15,35 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.getPromoFilms(adaptFilmToClient(data))))
 );
 
-export const fetchFilm = (url) => (dispatch, _getState, api) => (
+export const fetchFilm = (id) => (dispatch, _getState, api) => {
+  const url = `/films/${id}`;
+  return api.get(url)
+    .then(({data}) => dispatch(ActionCreator.getActiveFilm(adaptFilmToClient(data))))
+    .then(() => dispatch(ActionCreator.redirectToFilm(url)));
+};
+
+export const fetchComments = (url) => (dispatch, _getState, api) => (
   api.get(url)
-    .then(({data}) => dispatch(ActionCreator.getActiveFilms(adaptFilmToClient(data))))
-    .then(() => dispatch(ActionCreator.redirectToFilm(url)))
+    .then((comments) => dispatch(ActionCreator.getComments(comments.data)))
 );
 
 export const fetchFavoriteFilm = () => (dispatch, _getState, api) => (
   api.get(APIRoute.MY_FILMS)
     .then(({data}) => {
-      const films = data ?? data.map((item) => adaptFilmToClient(item));
+      const films = data && data.map((item) => adaptFilmToClient(item));
       dispatch(ActionCreator.getFavoriteFilms(films));
     })
 );
+
+export const fetchFavoriteStatus = (id, flag, promo) => (dispatch, _getState, api) => {
+  const status = flag ? 1 : 0;
+  const url = `/favorite/${id}/${status}`;
+  api.post(url)
+    .then(({data}) => {
+      dispatch(ActionCreator.getActiveFilm(adaptFilmToClient(data)));
+      promo && dispatch(ActionCreator.getPromoFilms(adaptFilmToClient(data)));
+    });
+};
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)

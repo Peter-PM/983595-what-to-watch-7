@@ -6,6 +6,23 @@ dayjs.extend(duration);
 
 export const getTimeAdapter = (minutes) => `${dayjs.duration(minutes, 'm').hours()}h ${dayjs.duration(minutes, 'm').minutes()}m`;
 
+export const  secondsToHms = (second) => {
+  second = Number(second);
+  const hours = Math.floor(second / 3600);
+  const minutes = Math.floor(second % 3600 / 60);
+  const seconds = Math.floor(second % 3600 % 60);
+
+  return hours > 0 ? [
+    hours.toString().padStart(2, '0'),
+    minutes.toString().padStart(2, '0'),
+    seconds.toString().padStart(2, '0'),
+  ].join(':') : [
+    minutes.toString().padStart(2, '0'),
+    seconds.toString().padStart(2, '0'),
+  ].join(':');
+};
+
+
 export const formatDateComments = (date) => dayjs(date).format('MMMM DD, YYYY');
 
 export const getRandomNumber = function (min, max) {

@@ -22,7 +22,7 @@ function LikeThis(props) {
 }
 
 LikeThis.propTypes = {
-  similarFilms: PropTypes.arrayOf.isRequired,
+  similarFilms: PropTypes.array.isRequired,
   filmId: PropTypes.number.isRequired,
 };
 

@@ -1,19 +1,26 @@
 import React, {useState} from 'react';
+import { useHistory } from 'react-router';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { ActionCreator } from '../../store/action';
+import { Fragment } from 'react';
+import { AppRoute } from '../../const';
 
 function AddComment({film, getComments}) {
   const [commentary, setComment] = useState({
     rating: 0,
     comment: '',
   });
-  const commentLength = commentary.comment.length >= 50 && commentary.rating !== 0;
+  const [isDisabled, setDisabled] = useState(false);
+
+  const commentAttributes = commentary.comment.length >= 50 && commentary.rating !== 0;
   const token = localStorage.getItem('token') ?? '';
 
+  const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    setDisabled(true);
 
     fetch(`https://7.react.pages.academy/wtw/comments/${film.id}`, {
       method: 'POST',
@@ -23,36 +30,48 @@ function AddComment({film, getComments}) {
         'x-token': token,
       }),
     })
+      .then((response) => {
+        if (response.ok) {
+          setDisabled(false);
+        } else {
+          throw Error(response.status);
+        }
+        return response;
+      })
       .then((response) => response.json())
-      .then((comments) => getComments(comments));
+      .then((comments) => getComments(comments))
+      .then(() => history.push(`/films/${film.id}`))
+      .catch(() => {
+        setDisabled(false);
+        history.push(AppRoute.COMMENT_ERROR_SCREEN);
+      });
   };
 
   const ratingArray = [10,9,8,7,6,5,4,3,2,1];
   const renderStars = () => (
     ratingArray.map((item) => (
-      <>
+      <Fragment key={item}>
         <input
           className="rating__input"
           id={`star-${item}`}
           type="radio"
           name="rating"
           value={item}
-          key={item}
           onChange={(evt) => {
             setComment(() => ({
               ...commentary,
               rating: +evt.target.value,
             }));
           }}
+          disabled={isDisabled}
         />
         <label
           className="rating__label"
           htmlFor={`star-${item}`}
-          key={item * 10}
         >
           Rating {item}
         </label>
-      </>
+      </Fragment>
     ))
   );
 
@@ -83,10 +102,11 @@ function AddComment({film, getComments}) {
                 comment: evt.target.value,
               }));
             }}
+            disabled={isDisabled}
           >
           </textarea>
           <div className="add-review__submit">
-            {commentLength ? (
+            {commentAttributes && !isDisabled ? (
               <button className="add-review__btn" type="submit">Post</button>
             ) : (
               <button className="add-review__btn" type="submit" disabled>Post</button>
@@ -100,7 +120,7 @@ function AddComment({film, getComments}) {
 
 AddComment.propTypes = {
   getComments: PropTypes.func.isRequired,
-  film: PropTypes.shape.isRequired,
+  film: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

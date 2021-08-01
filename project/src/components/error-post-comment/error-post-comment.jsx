@@ -1,30 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Logo from '../header/logo';
 import Auth from '../header/auth';
-import {FilmList} from '../film-list/film-list';
 
-function MyList({favoriteFilms}) {
-  const films = favoriteFilms;
+function ErrorPostScreen({filmId}) {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <Logo/>
-
-        <h1 className="page-title user-page__title">My list</h1>
-
         <Auth/>
       </header>
 
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <div className="catalog__films-list">
-          <FilmList
-            films={films}
-          />
-        </div>
+      <section>
+        <h1>Ошибка отправки комментария</h1>
+        <p>
+          <Link to={`films/${filmId}`}>Вернуться к фильму</Link>
+        </p>
       </section>
 
       <footer className="page-footer">
@@ -44,12 +37,12 @@ function MyList({favoriteFilms}) {
   );
 }
 
-MyList.propTypes = {
-  favoriteFilms: PropTypes.array.isRequired,
+ErrorPostScreen.propTypes = {
+  filmId: PropTypes.number.isRequired,
 };
+
 const mapStateToProps = (state) => ({
-  favoriteFilms: state.favoriteFilms,
+  filmId: state.activeFilm.id,
 });
 
-export  {MyList};
-export default connect(mapStateToProps, null)(MyList);
+export default connect(mapStateToProps, null)(ErrorPostScreen);

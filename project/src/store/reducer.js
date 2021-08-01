@@ -12,10 +12,10 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
   user: {},
-  favoriteFilms: {},
+  favoriteFilms: [],
   similarFilms: [],
   comments: [],
-  activeFilm: {},
+  activeFilm: null,
 };
 
 const reducer = (state = initialState, action) => {

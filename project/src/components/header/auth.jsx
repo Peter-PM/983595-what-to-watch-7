@@ -62,10 +62,7 @@ Auth.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   logoutUser: PropTypes.func.isRequired,
   getMyList: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-  }).isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

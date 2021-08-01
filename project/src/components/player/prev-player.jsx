@@ -27,7 +27,7 @@ function PrevPlayer(film, isPlaying) {
   }, [isPlaying]);
   return (
     <video
-      src={film.previewVideolink}
+      src={film.previewVideoLink}
       className="player__video"
       poster={film.previewImage}
       muted
@@ -47,7 +47,7 @@ PrevPlayer.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     videoLink: PropTypes.string.isRequired,
-    previewVideolink: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
     scoreCount: PropTypes.number.isRequired,
